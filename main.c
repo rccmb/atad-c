@@ -1,16 +1,17 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
-#include "utilities/ui.h"
+#include "logic.h"
 
 int main() {
 
     printf("Olympic Games Data Analysis\n");
     printf("---------------------------\n");
 
-    printMenu();
+    commandProcessing();
 
-    while(requestCommand() == true);
+    printf("-----------------------------------------------\n");
+    printf("Thank you for using Olympic Games Data Analysis\n");
     
     return EXIT_SUCCESS;
 }

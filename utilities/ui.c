@@ -3,7 +3,7 @@
  * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of ui.h.
  * 
- * Allows for user interaction and menu printing.
+ * Handles printing.
  * 
  * @version 1
  * @date 2024-08-10
@@ -13,10 +13,6 @@
 #include "ui.h"
 
 #include <stdio.h>
-#include "helper.h"
-#include "../input.h"
-
-#define COMMAND_LENGTH 32
 
 void printMenu() {
   printf("Command               | Description\n");
@@ -35,39 +31,4 @@ void printMenu() {
   printf("ATHLETE_INFO          | Shows information about an athlete.\n");
   printf("TOPN                  | Shows athletes with most won medals.\n");
   printf("MEDALS_WON            | Shows information about medals won by a country in 5 successive editions.\n");
-}
-
-bool requestCommand() {
-  char command[COMMAND_LENGTH];
-  printf("Command > ");
-  readString(command, COMMAND_LENGTH);
-  
-  if(strcmpins(command, "HELP") == 0) {
-    return true;
-  } 
-  
-  else if(strcmpins(command, "LOAD_A") == 0) {
-    return true;
-  } 
-  
-  else if(strcmpins(command, "LOAD_M") == 0) {
-    return true;
-  } 
-  
-  else if(strcmpins(command, "LOAD_H") == 0) {
-    return true;
-  } 
-  
-  else if(strcmpins(command, "CLEAR") == 0) {
-    return true;
-  } 
-  
-  else if(strcmpins(command, "QUIT") == 0) {
-    return false;
-  } 
-
-  else {
-    printf("Invalid command inserted. Use HELP to view all available commands.\n");
-    return true;
-  }
 }
