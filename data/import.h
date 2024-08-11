@@ -10,11 +10,10 @@
 
 #pragma once
 
-#include "../types/athlete.h"
 #include "../types/medal.h"
 #include "../types/host.h"
 
-PtAthlete load_a(int *size);
+PtList load_a(int *size);
 
 PtMedal load_m(int *size);
 

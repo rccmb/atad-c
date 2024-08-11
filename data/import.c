@@ -11,10 +11,17 @@
  * 
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../list.h"
 #include "import.h"
 
-PtAthlete load_a(int *size) {
+PtList load_a(int *size) {
+  FILE *stream = fopen("athletes.csv", "r");
 
+  if(stream == NULL) return NULL;
 }
 
 PtMedal load_m(int *size) {

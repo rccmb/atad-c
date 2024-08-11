@@ -11,7 +11,7 @@
 #pragma once
 
 /** Forward declaration of the data structure. */
-struct host;
+struct Host;
 
 /** Definition of pointer to the data stucture. */
-typedef struct host *PtHost;
+typedef struct Host *PtHost;
