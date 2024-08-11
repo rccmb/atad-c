@@ -23,4 +23,24 @@ typedef struct athlete {
 } Athlete;
 
 /** Definition of pointer to the data stucture. */
-typedef struct Athlete *PtAthlete;
+typedef struct athlete *PtAthlete;
+
+/**
+ * @brief Create a new Athlete.
+ * 
+ * @param athleteID [in] ID of the athlete.
+ * @param athleteName [in] Name of the athlete.
+ * @param gamesParticipations [in] Participation count of the athlete.
+ * @param yearFirstParticipation [in] First participation year of the athlete.
+ * @param athleteBirth [in] Birth of the athlete.
+ * 
+ * @return Athlete with the given information.
+ */
+Athlete athleteCreate(char *athleteID, char *athleteName, int gamesParticipations, int yearFirstParticipation, int athleteBirth);
+
+/**
+ * @brief Prints the information of an athlete.
+ * 
+ * @param athlete Pointer to an athlete.
+ */
+void athletePrint(PtAthlete athlete);

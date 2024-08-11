@@ -10,11 +10,9 @@
 
 #pragma once
 
-#include "../types/medal.h"
-#include "../types/host.h"
-
-PtList load_a(int *size);
-
-PtMedal load_m(int *size);
-
-PtHost load_h(int *size);
+/**
+ * @brief Imports athlete information.
+ * 
+ * @return PtList containing all of the imported athletes.
+ */
+PtList loadAthletes();

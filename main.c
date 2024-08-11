@@ -8,6 +8,7 @@
 #include "types/athlete.h"
 #include "types/medal.h"
 #include "types/host.h"
+#include "memory.h"
 #include "input.h"
 
 #define COMMAND_LENGTH 32
@@ -23,53 +24,34 @@ int main() {
     // Athletes -> List.
     // Medals -> Dynamic Array.
     // Hosts -> Map.
-    PtList athletes = listCreate();
-    int athletesSize = -1;
-
-    PtMedal medals = NULL;
-    int medalsSize = -1;
-
-    PtHost hosts = NULL;
-    int hostsSize = -1;
+    PtList athletes = NULL;
 
     while(true) {
         char command[COMMAND_LENGTH];
         printf("Command > ");
         readString(command, COMMAND_LENGTH);
         
-        if(strcmpins(command, "HELP") == 0) {
-            printMenu();
-        } 
+        if(strcmpins(command, "HELP") == 0) printMenu();
         
         else if(strcmpins(command, "LOAD_A") == 0) {
-            athletes = load_a(&athletesSize);
-
-            athletesSize > 0 
-                ? printf("<%d> Athlete records imported.", athletesSize)
-                : printf("No athlete records imported!");
-        } 
+            if(athletes == NULL) athletes = loadAthletes();
+            else printf("Athletes were already imported, use CLEAR to clear them from memory.\n");
+        }
         
         else if(strcmpins(command, "LOAD_M") == 0) {
-            medals = load_m(&medalsSize);
-
-            medalsSize > 0 
-                ? printf("<%d> Medal records imported.", medalsSize)
-                : printf("No medal records imported!");
+            // TODO
         } 
         
         else if(strcmpins(command, "LOAD_H") == 0) {
-            hosts = load_h(&hostsSize);
-
-            hostsSize > 0 
-                ? printf("<%d> Medal records imported.", hostsSize)
-                : printf("No medal records imported!");
+            // TODO
         } 
         
         else if(strcmpins(command, "CLEAR") == 0) {
-        
+            clear(&athletes);
         } 
         
         else if(strcmpins(command, "QUIT") == 0) {
+            quit(&athletes);
             break;
         } 
 

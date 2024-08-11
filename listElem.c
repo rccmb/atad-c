@@ -6,9 +6,11 @@
  * @bug No known bugs.
  */
 
-#include "listElem.h"
 #include <stdio.h>
+#include "types/athlete.h"
+
+#include "listElem.h"
 
 void listElemPrint(ListElem elem) {
-	printf("%d", elem);
+	athletePrint(&elem);
 }

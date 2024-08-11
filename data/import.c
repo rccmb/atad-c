@@ -4,7 +4,6 @@
  * @brief Provides an implementation of import.h.
  * 
  * Imports athlete information, medal information and host information from corresponding CSV files.
- * The CSV file should be present in the same directory.
  * 
  * @version 1
  * @date 2024-08-10
@@ -15,19 +14,46 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../input.h"
+#include "../types/athlete.h"
 #include "../list.h"
 #include "import.h"
 
-PtList load_a(int *size) {
-  FILE *stream = fopen("athletes.csv", "r");
+PtList loadAthletes() {
+  FILE *stream = fopen("data/athletes.csv", "r"); // Relative to main.
 
   if(stream == NULL) return NULL;
-}
 
-PtMedal load_m(int *size) {
+  PtList list = listCreate();
 
-}
+  int count = 0;
+  char line[1024];
+  while(fgets(line, 1024, stream)) {
 
-PtHost load_h(int *size) {
-  
+    char *tmp = strdup(line);
+
+    char **tokens = splitString(tmp, 5, ";");
+
+    Athlete ath = athleteCreate(
+      tokens[0], // athlete_id
+      tokens[1], // athlete_full_name
+      atoi(tokens[2]), // games_participations
+      atoi(tokens[3]), // first_game
+      atoi(tokens[4]) // athlete_year_birth
+    );
+
+    listAdd(list, count++, ath);
+
+    free(tokens);
+    free(tmp);
+  }
+
+  count--;
+  count > 0
+    ? printf("<%d> Athlete records imported.\n", count)
+    : printf("No athlete records imported!\n");
+
+  fclose(stream);
+
+  return list;
 }
