@@ -31,6 +31,7 @@ PtList loadAthletes() {
 
   int count = 0;
   char line[1024];
+  fgets(line, 1024, stream);
   while(fgets(line, 1024, stream)) {
 
     char *tmp = strdup(line);
@@ -51,7 +52,6 @@ PtList loadAthletes() {
     free(tmp);
   }
 
-  count--;
   count > 0
     ? printf("<%d> Athlete records imported.\n", count)
     : printf("No athlete records imported!\n");

@@ -67,6 +67,8 @@ void paginate(PtList athletes) {
   int size;
   listSize(athletes, &size);
 
+  printf("%d ATHLETES FOUND.\n", size);
+
   for(int i = 0; i < 20; i++) {
     Athlete athlete;
     listGet(athletes, i, &athlete);
