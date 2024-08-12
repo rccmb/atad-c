@@ -15,10 +15,12 @@
 #include <string.h>
 #include "../list.h"
 #include "../types/athlete.h"
+#include "../input.h"
 
 #include "athleteShow.h"
 
 #define PAGE_LENGTH 20
+#define LINE_LENGTH 150
 
 static int partition(PtList athletes, int low, int high) {
   Athlete pivot;
@@ -63,16 +65,48 @@ void orderAthletes(PtList athletes) {
   quicksort(athletes, 0, size - 1);
 }
 
-void paginate(PtList athletes) {
+void paginate(PtList athletes) { 
+  if(athletes == NULL) return;
+
   int size;
   listSize(athletes, &size);
 
-  printf("%d ATHLETES FOUND.\n", size);
+  int current = 0;
+  int limit = current + PAGE_LENGTH;
+  while(true) {
+    printf("%d ATHLETES FOUND.\n", size);
+    printf("%40s %60s %15s %20s %11s\n", "ATHLETE ID", "FULL NAME", "PARTICIPATIONS", "FIRST PARTICIPATION", "BIRTH YEAR");
+    for(int i = 0; i < LINE_LENGTH; i++) {
+      printf("-");
+    }
+    printf("\n");
 
-  for(int i = 0; i < 20; i++) {
-    Athlete athlete;
-    listGet(athletes, i, &athlete);
-    athletePrint(&athlete);
+    for(int i = current; i < limit; i++) {
+      Athlete ath;
+      listGet(athletes, i, &ath);
+      printf("%40s %60s %15d %20d %11d\n", ath.athleteID, ath.athleteName, ath.gamesParticipations, ath.yearFirstParticipation, ath.athleteBirth);
+    }
+
+    printf("Lines from %d to %d.\n", current, limit);
+    printf("\n");
+    printf("SHOW_ALL PAGINATED\n");
+    printf("1. Next %d\n", PAGE_LENGTH);
+    printf("2. Return\n");
+
+    printf("Command > ");
+    int userChoice;
+    readInteger(&userChoice);
+  
+    if(userChoice == 1) {
+      current = limit;
+      limit = current + PAGE_LENGTH;
+      continue;
+    }
+    else if(userChoice == 2) {
+      printf("Exited SHOW_ALL.\n");
+      return;
+    }
+    else printf("Command not found. Type 1 to show the next page or 2 to exit SHOW_ALL.\n");
   }
 }
 

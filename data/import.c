@@ -34,22 +34,26 @@ PtList loadAthletes() {
   fgets(line, 1024, stream);
   while(fgets(line, 1024, stream)) {
 
-    char *tmp = strdup(line);
+    char *tmp = strdup(line);  
+    char **tokens = splitString(tmp, 5, ";");  
 
-    char **tokens = splitString(tmp, 5, ";");
-
+    char firstGameYear[5]; 
+    int yearPos = strlen(tokens[3]) - 4;
+    strncpy(firstGameYear, tokens[3] + yearPos, 4);
+    firstGameYear[4] = '\0';
+    
     Athlete ath = athleteCreate(
       tokens[0], // athlete_id
       tokens[1], // athlete_full_name
       atoi(tokens[2]), // games_participations
-      atoi(tokens[3]), // first_game
+      atoi(firstGameYear), // first_game
       atoi(tokens[4]) // athlete_year_birth
     );
 
     listAdd(list, count++, ath);
 
-    free(tokens);
     free(tmp);
+    free(tokens);
   }
 
   count > 0

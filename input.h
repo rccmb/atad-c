@@ -61,7 +61,7 @@ void readString(char *charArr, unsigned int maxChars);
  * This function modifies the parameter 'string', replacing
  * delimiter occurrences by '\0' and returns and array of pointers
  * to each invidual tokens.
- * 
+ *  
  * This array must be free'd by the caller.
  * 
  * @param string [in] the string to split
