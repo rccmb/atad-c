@@ -12,23 +12,58 @@
 
 #include "../list.h"
 
-// TODO Documentation.
+/**
+ * @brief Orders the given athlete list alphabetically by name.
+ * 
+ * @param athletes [in] The list of athletes to order.
+ */
 void orderAthletes(PtList athletes);
 
-// TODO Documentation.
+/**
+ * @brief Prints the provided athlete list in a paginated manner.
+ * 
+ * @param athletes [in] The list of athletes to print.
+ */
 void paginate(PtList athletes);
 
-// TODO Documentation.
+/**
+ * @brief Shows all athletes in the provided list with no filters.
+ * 
+ * @param athletes [in] The list of athletes.
+ */
 void showAll(PtList athletes);
 
-// TODO Documentation.
+/**
+ * @brief Shows all athletes in the provided list filtered by participation count.
+ * 
+ * @param athletes [in] The list of athletes.
+ * @param participationCount [in] Participation count to filter athletes.
+ */
 void showParticipations(PtList athletes, int participationCount);
 
-// TODO Documentation.
+/**
+ * @brief Shows all athletes in the provided list filtered by first year participated.
+ * 
+ * @param athletes [in] The list of athletes.
+ * @param firstYear [in] First year the athletes participated in the olympic games.
+ */
 void showFirst(PtList athletes, int firstYear);
 
-// TODO Documentation.
+/**
+ * @brief Copies an athlete list.
+ * 
+ * @param athletes [in] The list of athletes.
+ * 
+ * @return PtList with the copied list of athletes.
+ */
 PtList athleteListCopy(PtList athletes);
 
-// TODO Documentation.
+/**
+ * @brief Checks if the provided copy of ordered athletes has been loaded into memory.
+ *
+ * Saves execution time but not having to repeatedly order athletes by name.
+ * 
+ * @param athletes [in] The list of athletes to copy.
+ * @param athletesCopy [out] Address of the list to hold the ordered athletes, only modified if it's already NULL.
+ */
 void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy);

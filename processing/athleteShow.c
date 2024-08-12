@@ -70,7 +70,7 @@ void paginate(PtList athletes) {
   for(int i = 0; i < 20; i++) {
     Athlete athlete;
     listGet(athletes, i, &athlete);
-    printf("%s\n", athlete.athleteID);
+    athletePrint(&athlete);
   }
 }
 

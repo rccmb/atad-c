@@ -27,6 +27,11 @@ Athlete athleteCreate(char *athleteID, char *athleteName, int gamesParticipation
 }
 
 void athletePrint(PtAthlete ath) {
-  // TODO
-  printf("Athlete: %s\n", ath->athleteName);
+  printf("Athlete: {\n");
+  printf("\tID: %s\n", ath->athleteID);
+  printf("\tName: %s\n", ath->athleteName);
+  printf("\tGame Participations: %d\n", ath->gamesParticipations);
+  printf("\tFirst Year Participation: %d\n", ath->yearFirstParticipation);
+  printf("\tBirth Year: %d\n", ath->athleteBirth);
+  printf("}\n");
 }

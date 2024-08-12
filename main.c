@@ -21,10 +21,6 @@ int main() {
 
     printMenu();
 
-    // TODO Adapt assigments to:
-    // Athletes -> List.
-    // Medals -> Dynamic Array.
-    // Hosts -> Map.
     PtList athletes = NULL;
     PtList alphabeticAthletes = NULL;
 
