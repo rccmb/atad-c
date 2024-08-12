@@ -26,7 +26,7 @@ int main() {
 
     while(true) {
         char command[COMMAND_LENGTH];
-        printf("Command > ");
+        printf("MENU Command > ");
         readString(command, COMMAND_LENGTH);
         
         if(strcmpins(command, "HELP") == 0) printMenu();

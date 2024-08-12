@@ -81,6 +81,7 @@ void paginate(PtList athletes) {
     }
     printf("\n");
 
+    if(limit > size) limit = size;
     for(int i = current; i < limit; i++) {
       Athlete ath;
       listGet(athletes, i, &ath);
@@ -89,14 +90,21 @@ void paginate(PtList athletes) {
 
     printf("Lines from %d to %d.\n", current, limit);
     printf("\n");
+
+    if(limit == size) {
+      printf("Reached the final page of SHOW_ALL.\n");
+      printf("Exited SHOW_ALL.\n");
+      return;
+    }
+
     printf("SHOW_ALL PAGINATED\n");
     printf("1. Next %d\n", PAGE_LENGTH);
     printf("2. Return\n");
 
-    printf("Command > ");
+    printf("SHOW_ALL Command > ");
     int userChoice;
     readInteger(&userChoice);
-  
+
     if(userChoice == 1) {
       current = limit;
       limit = current + PAGE_LENGTH;
