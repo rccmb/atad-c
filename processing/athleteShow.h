@@ -37,17 +37,15 @@ void showAll(PtList athletes);
  * @brief Shows all athletes in the provided list filtered by participation count.
  * 
  * @param athletes [in] The list of athletes.
- * @param participationCount [in] Participation count to filter athletes.
  */
-void showParticipations(PtList athletes, int participationCount);
+void showParticipations(PtList athletes);
 
 /**
  * @brief Shows all athletes in the provided list filtered by first year participated.
  * 
  * @param athletes [in] The list of athletes.
- * @param firstYear [in] First year the athletes participated in the olympic games.
  */
-void showFirst(PtList athletes, int firstYear);
+void showFirst(PtList athletes);
 
 /**
  * @brief Copies an athlete list.

@@ -92,16 +92,16 @@ void paginate(PtList athletes) {
     printf("\n");
 
     if(limit == size) {
-      printf("Reached the final page of SHOW_ALL.\n");
-      printf("Exited SHOW_ALL.\n");
+      printf("Reached the final page.\n");
+      printf("Exited pagination.\n");
       return;
     }
 
-    printf("SHOW_ALL PAGINATED\n");
+    printf("PAGINATION COMMANDS\n");
     printf("1. Next %d\n", PAGE_LENGTH);
     printf("2. Return\n");
 
-    printf("SHOW_ALL Command > ");
+    printf("Pagination Command > ");
     int userChoice;
     readInteger(&userChoice);
 
@@ -111,10 +111,10 @@ void paginate(PtList athletes) {
       continue;
     }
     else if(userChoice == 2) {
-      printf("Exited SHOW_ALL.\n");
+      printf("Exited pagination.\n");
       return;
     }
-    else printf("Command not found. Type 1 to show the next page or 2 to exit SHOW_ALL.\n");
+    else printf("Command not found. Type 1 to show the next page or 2 to exit pagination.\n");
   }
 }
 
@@ -127,12 +127,72 @@ void showAll(PtList athletes) {
   paginate(athletes);
 }
 
-void showParticipations(PtList athletes, int participationCount) {
-  return;
+void showParticipations(PtList athletes) {
+  if(athletes == NULL) {
+    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
+    return;
+  }
+
+  int participationCount;
+  printf("Participation Count: ");
+  readInteger(&participationCount);
+
+  PtList filteredList = listCreate();
+
+  int athletesSize;
+  listSize(athletes, &athletesSize);
+
+  int filteredSize = 0;
+  for(int i = 0; i < athletesSize; i++) {
+    Athlete athlete;
+    listGet(athletes, i, &athlete);
+    if(athlete.gamesParticipations >= participationCount) {
+      listAdd(filteredList, filteredSize++, athlete);
+    }
+  }
+
+  if(filteredSize <= 0) {
+    printf("No Athletes found with atleast %d participations.\n", participationCount);
+    return;
+  }
+
+  paginate(filteredList);
+
+  listDestroy(&filteredList);
 }
 
-void showFirst(PtList athletes, int firstYear) {
-  return;
+void showFirst(PtList athletes) {
+  if(athletes == NULL) {
+    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
+    return;
+  }
+
+  int firstYear;
+  printf("First Participation Year: ");
+  readInteger(&firstYear);
+
+  PtList filteredList = listCreate();
+
+  int athletesSize;
+  listSize(athletes, &athletesSize);
+
+  int filteredSize = 0;
+  for(int i = 0; i < athletesSize; i++) {
+    Athlete athlete;
+    listGet(athletes, i, &athlete);
+    if(athlete.yearFirstParticipation == firstYear) {
+      listAdd(filteredList, filteredSize++, athlete);
+    }
+  }
+
+  if(filteredSize <= 0) {
+    printf("No Athletes found whose first participation was at %d .\n", firstYear);
+    return;
+  }
+
+  paginate(filteredList);
+
+  listDestroy(&filteredList);
 }
 
 PtList athleteListCopy(PtList athletes) {
@@ -157,7 +217,8 @@ void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy) {
     PtList list = *athletesCopy;
 
     if(list == NULL) {
-      printf("Creating an ordered copy of athletes and loading it into memory...\n");
+      printf("Ordered copy of athlete information not detected.\n");
+      printf("Creating an ordered copy of athletes and loading it into memory... (saves execution time in the future)\n");
       list = athleteListCopy(athletes);
       orderAthletes(list);
       *athletesCopy = list;

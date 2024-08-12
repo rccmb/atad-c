@@ -61,11 +61,13 @@ int main() {
         }
         
         else if(strcmpins(command, "SHOW_PARTICIPATIONS") == 0) {
-            // TODO
+            checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
+            showParticipations(alphabeticAthletes);
         } 
 
         else if(strcmpins(command, "SHOW_FIRST") == 0) {
-            // TODO
+            checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
+            showFirst(alphabeticAthletes);
         } 
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");
