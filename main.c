@@ -9,7 +9,7 @@
 #include "types/medal.h"
 #include "types/host.h"
 #include "memory.h"
-#include "processing/athleteShow.h"
+#include "processing/simpleShow.h"
 #include "input.h"
 
 #define COMMAND_LENGTH 32
