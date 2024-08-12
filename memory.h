@@ -12,6 +12,8 @@
 
 #include "list.h"
 
+// TODO Documentation.
 void clear(PtList *ptAthletes);
 
+// TODO Documentation.
 void quit(PtList *ptAthletes);

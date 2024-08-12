@@ -12,3 +12,12 @@
  */
 
 #include "medal.h"
+
+#define INITIAL_CAPACITY 20
+
+typedef struct medalArrList {
+  PtMedal elements;
+  int size;
+  int capacity;
+} MedalArrList;
+

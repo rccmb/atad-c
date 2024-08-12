@@ -14,23 +14,31 @@
 
 #include "memory.h"
 
-void clear(PtList *ptAthletes) {
-  if(*ptAthletes == NULL) {
-    printf("There is nothing to clear. Have you already imported Athletes (LOAD_A), Medals (LOAD_M), or Hosts (LOAD_H)?\n");
-  }
-
+static void heapWipe(PtList *ptAthletes) {
   if(*ptAthletes != NULL) {
     PtList athList = *ptAthletes;
     listDestroy(&athList);
     
     athList == NULL 
-      ? printf("Deallocated athletes from heap memory.\n")
-      : printf("Something went wrong deallocating athletes from heap memory.\n");
+      ? printf("Athletes cleared from heap memory.\n")
+      : printf("Error clearing Athletes from heap memory.\n");
 
     if(athList == NULL) *ptAthletes = NULL;
   }
 }
 
+void clear(PtList *ptAthletes) {
+  if(*ptAthletes == NULL) { // TODO Other cases.
+    printf("There is nothing to clear. Have you already imported Athletes (LOAD_A), Medals (LOAD_M), or Hosts (LOAD_H)?\n");
+  }
+
+  heapWipe(ptAthletes);
+}
+
 void quit(PtList *ptAthletes) {
-  clear(ptAthletes);
+  printf("Clearing memory before exiting...");
+
+  heapWipe(ptAthletes);
+
+  printf("Memory cleared.\n"); 
 }

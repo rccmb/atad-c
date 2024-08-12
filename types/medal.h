@@ -17,6 +17,7 @@
 #define MAX_COUNTRY_LENGTH 50
 #define MAX_GENDER 20
 
+/** Medal structure. */
 typedef struct medal {
   char discipline[MAX_DISC_LENGTH]; // Modalidade.
   char game[MAX_GAME_LENGTH]; // Nome da edição dos jogos olímpicos.
@@ -28,5 +29,11 @@ typedef struct medal {
   char country[MAX_COUNTRY_LENGTH]; // País pelo qual o atleta competiu.
 } Medal;
 
-/** Definition of pointer to the data stucture. */
-typedef struct Medal *PtMedal;
+/** Definition of pointer to the medal data stucture. */
+typedef struct medal *PtMedal;
+
+/** Forward declaration of the medal list data structure. */
+struct medalArrList;
+
+/** Definition of pointer to the medal list data stucture. */
+typedef struct medalArrList *PtMedalList;

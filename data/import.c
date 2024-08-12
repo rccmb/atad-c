@@ -22,7 +22,10 @@
 PtList loadAthletes() {
   FILE *stream = fopen("data/athletes.csv", "r"); // Relative to main.
 
-  if(stream == NULL) return NULL;
+  if(stream == NULL) {
+    printf("File not found.");
+    return NULL;
+  }
 
   PtList list = listCreate();
 

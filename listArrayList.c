@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INITIAL_CAPACITY 20
+#define INITIAL_CAPACITY 20 
 
 typedef struct listImpl {
 	ListElem* elements;

@@ -9,6 +9,7 @@
 #include "types/medal.h"
 #include "types/host.h"
 #include "memory.h"
+#include "processing/athleteShow.h"
 #include "input.h"
 
 #define COMMAND_LENGTH 32
@@ -25,6 +26,7 @@ int main() {
     // Medals -> Dynamic Array.
     // Hosts -> Map.
     PtList athletes = NULL;
+    PtList alphabeticAthletes = NULL;
 
     while(true) {
         char command[COMMAND_LENGTH];
@@ -47,17 +49,30 @@ int main() {
         } 
         
         else if(strcmpins(command, "CLEAR") == 0) {
+            listDestroy(&alphabeticAthletes);
             clear(&athletes);
-        } 
+        }
         
         else if(strcmpins(command, "QUIT") == 0) {
+            listDestroy(&alphabeticAthletes);
             quit(&athletes);
             break;
         } 
 
-        else {
-            printf("Invalid command inserted. Use HELP to view all available commands.\n");
+        else if(strcmpins(command, "SHOW_ALL") == 0) {
+            checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
+            showAll(alphabeticAthletes);
         }
+        
+        else if(strcmpins(command, "SHOW_PARTICIPATIONS") == 0) {
+            // TODO
+        } 
+
+        else if(strcmpins(command, "SHOW_FIRST") == 0) {
+            // TODO
+        } 
+
+        else printf("Invalid command inserted. Use HELP to view all available commands.\n");
     }
 
     printf("-----------------------------------------------\n");
