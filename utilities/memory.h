@@ -11,9 +11,25 @@
 #pragma once
 
 #include "../adts/list.h"
+#include "../adts/map.h"
 
-// TODO Documentation.
-void clear(PtList *ptAthletes);
+/**
+ * @brief Clears allocated memory in the program. 
+ * 
+ * Clears the three main imported collections:
+ * - Athlete List.
+ * - Dynamic Medal Array.
+ * - Host Map.
+ *
+ * @param ptAthletes [in] Address of pointer to the athlete list.
+ * @param ptHosts [in] Address of pointer to the hosts map.
+ */
+void clear(PtList *ptAthletes, PtMap *ptHosts);
 
-// TODO Documentation.
-void quit(PtList *ptAthletes);
+/**
+ * @brief Quits the program. Uses clear().
+ * 
+ * @param ptAthletes [in] Address of pointer to the athlete list.
+ * @param ptHosts [in] Address of pointer to the hosts map.
+ */
+void quit(PtList *ptAthletes, PtMap *ptHosts);

@@ -105,3 +105,8 @@ void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy) {
     }
   }
 }
+
+void extractDate(char *datetime, char *date) {
+  strncpy(date, datetime, 10);
+  date[10] = '\0';
+}

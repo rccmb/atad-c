@@ -6,18 +6,21 @@
  * @bug No known bugs.
  */
 
-#include "mapElem.h"
 #include <stdio.h>
+#include <string.h>
+#include "../types/host.h"
+
+#include "mapElem.h"
 
 void mapKeyPrint(MapKey key) {
-	printf("%d", key);
+	printf("%s", key.text);
 }
 
 void mapValuePrint(MapValue value) {
-	printf("%d", value);
+	hostPrint(&value);
 }
 
 int mapKeyCompare(MapKey key1, MapKey key2) {
 	// in case of integer keys:
-	return (key1 - key2); 
+	return (strcmp(key1.text, key2.text) == 0); 
 }

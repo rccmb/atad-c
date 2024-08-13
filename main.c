@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "adts/list.h"
+#include "adts/map.h"
 #include "data/import.h"
 #include "utilities/ui.h"
 #include "utilities/helper.h"
@@ -24,6 +25,8 @@ int main() {
     PtList athletes = NULL;
     PtList alphabeticAthletes = NULL;
 
+    PtMap hosts = NULL;
+
     while(true) {
         char command[COMMAND_LENGTH];
         printf("MENU Command > ");
@@ -41,17 +44,18 @@ int main() {
         } 
         
         else if(strcmpins(command, "LOAD_H") == 0) {
-            // TODO
+            if(hosts == NULL) hosts = loadHosts();
+            else printf("Hosts were already imported, use CLEAR to clear them from memory.\n");
         } 
         
         else if(strcmpins(command, "CLEAR") == 0) {
             listDestroy(&alphabeticAthletes);
-            clear(&athletes);
+            clear(&athletes, &hosts);
         }
         
         else if(strcmpins(command, "QUIT") == 0) {
             listDestroy(&alphabeticAthletes);
-            quit(&athletes);
+            quit(&athletes, &hosts);
             break;
         } 
 

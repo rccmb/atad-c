@@ -16,3 +16,10 @@
  * @return PtList containing all of the imported athletes.
  */
 PtList loadAthletes();
+
+/**
+ * @brief Imports host information.
+ * 
+ * @return PtMap containing all of the imported hosts where key is the game slug and value the host structure.
+ */
+PtMap loadHosts();

@@ -27,6 +27,8 @@ Athlete athleteCreate(char *athleteID, char *athleteName, int gamesParticipation
 }
 
 void athletePrint(PtAthlete ath) {
+  if(ath == NULL) return;
+
   printf("Athlete: {\n");
   printf("\tID: %s\n", ath->athleteID);
   printf("\tName: %s\n", ath->athleteName);

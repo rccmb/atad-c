@@ -14,7 +14,7 @@
 
 #include "memory.h"
 
-static void heapWipe(PtList *ptAthletes) {
+static void heapWipe(PtList *ptAthletes, PtMap *ptHosts) {
   if(*ptAthletes != NULL) {
     PtList athList = *ptAthletes;
     listDestroy(&athList);
@@ -25,20 +25,31 @@ static void heapWipe(PtList *ptAthletes) {
 
     if(athList == NULL) *ptAthletes = NULL;
   }
+
+  if(*ptHosts != NULL) {
+    PtMap hMap = *ptHosts;
+    mapDestroy(&hMap);
+    
+    hMap == NULL 
+      ? printf("Hosts cleared from heap memory.\n")
+      : printf("Error clearing Hosts from heap memory.\n");
+
+    if(hMap == NULL) *ptHosts = NULL;
+  }
 }
 
-void clear(PtList *ptAthletes) {
-  if(*ptAthletes == NULL) { // TODO Other cases.
+void clear(PtList *ptAthletes, PtMap *ptHosts) {
+  if(*ptAthletes == NULL && *ptHosts == NULL) {
     printf("There is nothing to clear. Have you already imported Athletes (LOAD_A), Medals (LOAD_M), or Hosts (LOAD_H)?\n");
   }
 
-  heapWipe(ptAthletes);
+  heapWipe(ptAthletes, ptHosts);
 }
 
-void quit(PtList *ptAthletes) {
+void quit(PtList *ptAthletes, PtMap *ptHosts) {
   printf("Clearing memory before exiting...");
 
-  heapWipe(ptAthletes);
+  heapWipe(ptAthletes, ptHosts);
 
   printf("Memory cleared.\n"); 
 }

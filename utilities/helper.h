@@ -49,3 +49,11 @@ PtList athleteListCopy(PtList athletes);
  * @param athletesCopy [out] Address of the list to hold the ordered athletes, only modified if it's already NULL.
  */
 void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy);
+
+/**
+ * @brief Extracts the date from a string. 1952-08-03T07:00:00Z -> 1952-08-03
+ * 
+ * @param datetime [in] String with the hour.
+ * @param date [in] String to hold only the date.
+ */
+void extractDate(char *datetime, char *date);

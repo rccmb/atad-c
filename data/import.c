@@ -13,17 +13,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "../utilities/helper.h"
+#include "../utilities/stringWrap.h"
 #include "../utilities/input.h"
 #include "../types/athlete.h"
+#include "../types/host.h"
 #include "../adts/list.h"
+#include "../adts/map.h"
+
 #include "import.h"
 
 PtList loadAthletes() {
   FILE *stream = fopen("data/athletes.csv", "r"); // Relative to main.
 
   if(stream == NULL) {
-    printf("File not found.");
+    printf("Athletes file not found.");
     return NULL;
   }
 
@@ -63,4 +67,59 @@ PtList loadAthletes() {
   fclose(stream);
 
   return list;
+}
+
+PtMap loadHosts() {
+  FILE *stream = fopen("data/hosts.csv", "r");
+
+  if(stream == NULL) {
+    printf("Hosts file not found.");
+    return NULL;
+  }
+
+  PtMap map = mapCreate();
+
+  int count = 0;
+  char line[1024];
+  fgets(line, 1024, stream);
+  while(fgets(line, 1024, stream)) {
+
+    char *tmp = strdup(line);  
+    char **tokens = splitString(tmp, 7, ";");
+
+    char endDate[11];
+    extractDate(tokens[1], endDate);
+
+    char startDate[11];
+    extractDate(tokens[2], startDate);
+    
+    int length = strlen(tokens[4]);
+    if(length > 4) tokens[4][length - 5] = '\0';
+    else strcpy(tokens[4], "");
+    
+    Host h = hostCreate(
+      tokens[0],
+      endDate,
+      startDate,
+      tokens[3],
+      tokens[4],
+      tokens[5],
+      atoi(tokens[6])
+    );
+    count++;
+
+    StringWrap swr = stringWrapCreate(tokens[0]);
+    mapPut(map, swr, h);
+
+    free(tmp);
+    free(tokens);
+  }
+
+  count > 0
+    ? printf("<%d> Host records imported.\n", count)
+    : printf("No host records imported!\n");
+
+  fclose(stream);
+
+  return map;
 }
