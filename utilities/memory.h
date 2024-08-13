@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "list.h"
+#include "../adts/list.h"
 
 // TODO Documentation.
 void clear(PtList *ptAthletes);

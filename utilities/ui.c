@@ -10,8 +10,8 @@
  * 
  */
 
-#include "../list.h"
-#include "../input.h"
+#include "../adts/list.h"
+#include "../utilities/input.h"
 #include <stdio.h>
 
 #include "ui.h"

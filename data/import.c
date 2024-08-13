@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../input.h"
+#include "../utilities/input.h"
 #include "../types/athlete.h"
-#include "../list.h"
+#include "../adts/list.h"
 #include "import.h"
 
 PtList loadAthletes() {

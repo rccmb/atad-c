@@ -1,7 +1,7 @@
 /**
- * @file simpleShow.c
+ * @file simple.c
  * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
- * @brief Provides an implementation of simpleShow.h.
+ * @brief Provides an implementation of simple.h.
  * 
  * Allows for displaying information about the imported athlete and host data.
  * Only requires the athlete and host dataset.
@@ -12,12 +12,12 @@
  */
 
 #include <stdio.h>
-#include "../list.h"
+#include "../adts/list.h"
 #include "../types/athlete.h"
 #include "../utilities/ui.h"
-#include "../input.h"
+#include "../utilities/input.h"
 
-#include "simpleShow.h"
+#include "simple.h"
 
 void showAll(PtList athletes) {
   if(athletes == NULL) {

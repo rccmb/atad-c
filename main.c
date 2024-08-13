@@ -1,16 +1,16 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
-#include "list.h"
+#include "adts/list.h"
 #include "data/import.h"
 #include "utilities/ui.h"
 #include "utilities/helper.h"
 #include "types/athlete.h"
 #include "types/medal.h"
 #include "types/host.h"
-#include "memory.h"
-#include "processing/simpleShow.h"
-#include "input.h"
+#include "utilities/memory.h"
+#include "shows/simple.h"
+#include "utilities/input.h"
 
 #define COMMAND_LENGTH 32
 

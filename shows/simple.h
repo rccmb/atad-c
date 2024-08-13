@@ -1,9 +1,9 @@
 /**
- * @file simpleShow.h
+ * @file simple.h
  * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Responsible for all of the commands SHOW commands for the athletes and hosts.
  *
- * Functions nly require one dataset per SHOW. Therefore being simple.
+ * Functions only require one dataset per SHOW. Therefore being simple.
  * 
  * @version 1
  * @date 2024-08-09
@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "../list.h"
+#include "../adts/list.h"
 
 /**
  * @brief Shows all athletes in the provided list with no filters.

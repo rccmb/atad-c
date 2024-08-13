@@ -7,7 +7,7 @@
  */
 
 #include <stdio.h>
-#include "types/athlete.h"
+#include "../types/athlete.h"
 
 #include "listElem.h"
 
