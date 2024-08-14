@@ -23,22 +23,25 @@
 void showAll(PtList athletes);
 
 /**
- * @brief Shows all athletes in the provided list filtered by participation count.
+ * @brief Shows all athletes in the provided list filtered by minimum participation count.
  * 
  * @param athletes [in] The list of athletes.
+ * @param participationCount [in] The minimum participation count to filter by.
  */
-void showParticipations(PtList athletes);
+void showParticipations(PtList athletes, int participationCount);
 
 /**
- * @brief Shows all athletes in the provided list filtered by first year participated.
+ * @brief Shows all athletes whose first participation was in the provided year.
  * 
  * @param athletes [in] The list of athletes.
+ * @param firstYear [in] The first participation year to filter by.
  */
-void showFirst(PtList athletes);
+void showFirst(PtList athletes, int firstYear);
 
 /**
- * @brief Shows host relative to the game slug.
+ * @brief Shows host relative to the game slug inserted by the user.
  * 
- * @param hosts [in] The list of hosts.
+ * @param hosts [in] The map of hosts.
+ * @param gameSlug [in] The gameSlug of the host.
  */
-void showHost(PtMap hosts);
+void showHost(PtMap hosts, char *gameSlug);

@@ -9,7 +9,7 @@
 #include "types/athlete.h"
 #include "types/medal.h"
 #include "types/host.h"
-#include "utilities/memory.h"
+#include "data/memory.h"
 #include "shows/simple.h"
 #include "utilities/input.h"
 
@@ -71,15 +71,31 @@ int main() {
         
         else if(strcmpins(command, "SHOW_PARTICIPATIONS") == 0) {
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
-            showParticipations(alphabeticAthletes);
+
+            int participationCount;
+            printf("Participation Count: ");
+            readInteger(&participationCount);
+
+            showParticipations(alphabeticAthletes, participationCount);
         } 
 
         else if(strcmpins(command, "SHOW_FIRST") == 0) {
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
-            showFirst(alphabeticAthletes);
+
+            int firstYear;
+            printf("First Participation Year: ");
+            readInteger(&firstYear);
+
+            showFirst(alphabeticAthletes, firstYear);
         }
 
-        else if(strcmpins(command, "SHOW_HOST") == 0) showHost(hosts);
+        else if(strcmpins(command, "SHOW_HOST") == 0) {
+            char gameSlug[MAX_GAME_SLUG_LENGTH];
+            printf("Game Slug: ");
+            readString(gameSlug, MAX_GAME_SLUG_LENGTH);
+
+            showHost(hosts, gameSlug);
+        }
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");
     }

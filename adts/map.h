@@ -139,7 +139,7 @@ MapKey* mapKeys(PtMap map);
  * 
  * @param map [in] pointer to the map
  * 
- * @return array containing the values
+ * @return array containing the values, or
  * @return NULL if 'map' is empty or NULL
  */
 MapValue* mapValues(PtMap map);

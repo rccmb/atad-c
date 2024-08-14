@@ -29,8 +29,8 @@ void printMenu() {
   printf("CLEAR                 | Clears all stored information.\n");
   printf("QUIT                  | Quits the program.\n");
   printf("SHOW_ALL              | Shows all athletes ordered by name.\n");
-  printf("SHOW_PARTICIPATIONS   | Shows athletes that participated, at least, once.\n");
-  printf("SHOW_FIRST            | Shows athletes whose first participation was in a year.\n");
+  printf("SHOW_PARTICIPATIONS   | Shows athletes that participated, at least, X times.\n");
+  printf("SHOW_FIRST            | Shows athletes whose first participation was in X year.\n");
   printf("SHOW_HOST             | Shows information about a host.\n");
   printf("DISCIPLINE_STATISTICS | Shows disciplines information for an Olympic Games edition.\n");
   printf("ATHLETE_INFO          | Shows information about an athlete.\n");

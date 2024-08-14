@@ -22,9 +22,7 @@ PtList loadAthletes();
 /**
  * @brief Imports medal information.
  *
- * @param size [out] The size of the resulting medal list.
- * 
- * @return PtMedal containing all of the imported medals.
+ * @param medals [in] Pointer to the medal instance.
  */
 void loadMedals(PtMedalList medals);
 

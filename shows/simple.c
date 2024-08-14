@@ -32,15 +32,11 @@ void showAll(PtList athletes) {
   paginate(athletes);
 }
 
-void showParticipations(PtList athletes) {
+void showParticipations(PtList athletes, int participationCount) {
   if(athletes == NULL) {
     printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
     return;
   }
-
-  int participationCount;
-  printf("Participation Count: ");
-  readInteger(&participationCount);
 
   PtList filteredList = listCreate();
 
@@ -66,15 +62,11 @@ void showParticipations(PtList athletes) {
   listDestroy(&filteredList);
 }
 
-void showFirst(PtList athletes) {
+void showFirst(PtList athletes, int firstYear) {
   if(athletes == NULL) {
     printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
     return;
   }
-
-  int firstYear;
-  printf("First Participation Year: ");
-  readInteger(&firstYear);
 
   PtList filteredList = listCreate();
 
@@ -100,15 +92,11 @@ void showFirst(PtList athletes) {
   listDestroy(&filteredList);
 }
 
-void showHost(PtMap hosts) {
+void showHost(PtMap hosts, char *gameSlug) {
   if(hosts == NULL) {
     printf("No Hosts provided. Have you imported them? (LOAD_H)\n");
     return;
   }
-
-  char gameSlug[MAX_GAME_SLUG_LENGTH];
-  printf("Game Slug: ");
-  readString(gameSlug, MAX_GAME_SLUG_LENGTH);
 
   StringWrap swr = stringWrapCreate(gameSlug);
 
