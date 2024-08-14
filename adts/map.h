@@ -52,7 +52,7 @@ int mapDestroy(PtMap *ptMap);
  * 
  * @param map [in] pointer to the map
  * @param key [in] key 
- * @param value  [in] value
+ * @param value [in] value
  * 
  * @return MAP_OK if successful, or
  * @return MAP_UNKNOWN_KEY if 'key' doesn't exist, or

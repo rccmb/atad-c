@@ -52,8 +52,20 @@ void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy);
 
 /**
  * @brief Extracts the date from a string. 1952-08-03T07:00:00Z -> 1952-08-03
+ *
+ * It is assumed that the string is well formated.
  * 
- * @param datetime [in] String with the hour.
+ * @param datetime [in] String with the date and hour.
  * @param date [in] String to hold only the date.
  */
 void extractDate(char *datetime, char *date);
+
+/**
+ * @brief Extracts the city from a string with a year. Helsinki 1952 -> Helsinki
+ *
+ * It is assumed that the string is well formated.
+ * 
+ * @param cityyear [in] String with the city and year.
+ * @param city [in] String to hold the city.
+ */
+void extractCity(char *cityyear, char *city);

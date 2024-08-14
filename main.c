@@ -72,7 +72,9 @@ int main() {
         else if(strcmpins(command, "SHOW_FIRST") == 0) {
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
             showFirst(alphabeticAthletes);
-        } 
+        }
+
+        else if(strcmpins(command, "SHOW_HOST") == 0) showHost(hosts);
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");
     }

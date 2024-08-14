@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../utilities/helper.h"
-#include "../utilities/stringWrap.h"
+#include "../types/stringWrap.h"
 #include "../utilities/input.h"
 #include "../types/athlete.h"
 #include "../types/host.h"
@@ -87,22 +87,15 @@ PtMap loadHosts() {
     char *tmp = strdup(line);  
     char **tokens = splitString(tmp, 7, ";");
 
-    char endDate[11];
-    extractDate(tokens[1], endDate);
-
-    char startDate[11];
-    extractDate(tokens[2], startDate);
-    
-    int length = strlen(tokens[4]);
-    if(length > 4) tokens[4][length - 5] = '\0';
-    else strcpy(tokens[4], "");
+    DateTime endDate = datetimeCreate(tokens[1]);
+    DateTime startDate = datetimeCreate(tokens[2]);
     
     Host h = hostCreate(
       tokens[0],
       endDate,
       startDate,
       tokens[3],
-      tokens[4],
+      tokens[4], 
       tokens[5],
       atoi(tokens[6])
     );

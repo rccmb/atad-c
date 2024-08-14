@@ -17,7 +17,7 @@
 #pragma once
 
 #include <stdbool.h>
-#include "../utilities/stringWrap.h"
+#include "../types/stringWrap.h"
 #include "../types/host.h"
 
 /** Key type definition. Change according to the use-case. */
@@ -34,7 +34,7 @@ typedef Host MapValue;
  * 
  * @param key [in] key to print
  */
-void mapKeyPrint(MapKey key);
+void mapKeyPrint(MapKey key); 
 
 /**
  * @brief Prints a value.

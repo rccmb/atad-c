@@ -21,6 +21,5 @@ void mapValuePrint(MapValue value) {
 }
 
 int mapKeyCompare(MapKey key1, MapKey key2) {
-	// in case of integer keys:
-	return (strcmp(key1.text, key2.text) == 0); 
+	return strcmp(key1.text, key2.text); 
 }

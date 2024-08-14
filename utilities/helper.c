@@ -14,42 +14,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #include "helper.h"
 
-static int partition(PtList athletes, int low, int high) {
-  Athlete pivot;
-  listGet(athletes, high, &pivot);
-  
-  int i = low - 1;
-
-  for(int j = low; j < high; j++) {
-    Athlete comp;
-    listGet(athletes, j, &comp);
-
-    if(strcmp(comp.athleteName, pivot.athleteName) <= 0) {
-      i++;
-      Athlete temp;
-      listSet(athletes, i, comp, &temp);
-      listSet(athletes, j, temp, &temp);
-    }
-  }
-
-  Athlete temp;
-  listSet(athletes, i + 1, pivot, &temp);
-  listSet(athletes, high, temp, &temp);
-
-  return i + 1;
-}
-
-static void quicksort(PtList athletes, int low, int high) {
-  if (low < high) {
-    int pi = partition(athletes, low, high);
-
-    quicksort(athletes, low, pi - 1);
-    quicksort(athletes, pi + 1, high);
-  }
-}
+static int partitionAthletes(PtList athletes, int low, int high);
+static void quicksortAthletes(PtList athletes, int low, int high);
 
 int strcmpins(char *str1, char *str2) {
   while(*str1 != '\0' || *str2 != '\0') {
@@ -72,7 +42,7 @@ void orderAthletes(PtList athletes) {
   int size;
   listSize(athletes, &size);
 
-  quicksort(athletes, 0, size - 1);
+  quicksortAthletes(athletes, 0, size - 1);
 }
 
 PtList athleteListCopy(PtList athletes) {
@@ -109,4 +79,44 @@ void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy) {
 void extractDate(char *datetime, char *date) {
   strncpy(date, datetime, 10);
   date[10] = '\0';
+}
+
+void extractCity(char *cityyear, char *city) {
+  size_t length = strlen(cityyear);
+  strncpy(city, cityyear, length);
+  city[length - 5] = '\0';
+}
+
+static int partitionAthletes(PtList athletes, int low, int high) {
+  Athlete pivot;
+  listGet(athletes, high, &pivot);
+  
+  int i = low - 1;
+
+  for(int j = low; j < high; j++) {
+    Athlete comp;
+    listGet(athletes, j, &comp);
+
+    if(strcmp(comp.athleteName, pivot.athleteName) <= 0) {
+      i++;
+      Athlete temp;
+      listSet(athletes, i, comp, &temp);
+      listSet(athletes, j, temp, &temp);
+    }
+  }
+
+  Athlete temp;
+  listSet(athletes, i + 1, pivot, &temp);
+  listSet(athletes, high, temp, &temp);
+
+  return i + 1;
+}
+
+static void quicksortAthletes(PtList athletes, int low, int high) {
+  if (low < high) {
+    int pi = partitionAthletes(athletes, low, high);
+
+    quicksortAthletes(athletes, low, pi - 1);
+    quicksortAthletes(athletes, pi + 1, high);
+  }
 }

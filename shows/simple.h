@@ -13,6 +13,7 @@
 #pragma once
 
 #include "../adts/list.h"
+#include "../adts/map.h"
 
 /**
  * @brief Shows all athletes in the provided list with no filters.
@@ -34,3 +35,10 @@ void showParticipations(PtList athletes);
  * @param athletes [in] The list of athletes.
  */
 void showFirst(PtList athletes);
+
+/**
+ * @brief Shows host relative to the game slug.
+ * 
+ * @param hosts [in] The list of hosts.
+ */
+void showHost(PtMap hosts);
