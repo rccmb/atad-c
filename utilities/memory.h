@@ -12,6 +12,7 @@
 
 #include "../adts/list.h"
 #include "../adts/map.h"
+#include "../types/medal.h"
 
 /**
  * @brief Clears allocated memory in the program. 
@@ -23,13 +24,15 @@
  *
  * @param ptAthletes [in] Address of pointer to the athlete list.
  * @param ptHosts [in] Address of pointer to the hosts map.
+ * @param ptMedals [in] Pointer to the medals list.
  */
-void clear(PtList *ptAthletes, PtMap *ptHosts);
+void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);
 
 /**
  * @brief Quits the program. Uses clear().
  * 
  * @param ptAthletes [in] Address of pointer to the athlete list.
  * @param ptHosts [in] Address of pointer to the hosts map.
+ * @param ptMedals [in] Pointer to the medals list.
  */
-void quit(PtList *ptAthletes, PtMap *ptHosts);
+void quit(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);

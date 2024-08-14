@@ -25,6 +25,10 @@ int main() {
     PtList athletes = NULL;
     PtList alphabeticAthletes = NULL;
 
+    MedalList medals;
+    medals.elements = NULL;
+    medals.size = 0;
+
     PtMap hosts = NULL;
 
     while(true) {
@@ -40,7 +44,8 @@ int main() {
         }
         
         else if(strcmpins(command, "LOAD_M") == 0) {
-            // TODO
+            if(medals.elements == NULL) loadMedals(&medals);
+            else printf("Medals were already imported, use CLEAR to clear them from memory.\n");
         } 
         
         else if(strcmpins(command, "LOAD_H") == 0) {
@@ -50,12 +55,12 @@ int main() {
         
         else if(strcmpins(command, "CLEAR") == 0) {
             listDestroy(&alphabeticAthletes);
-            clear(&athletes, &hosts);
+            clear(&athletes, &hosts, &medals);
         }
         
         else if(strcmpins(command, "QUIT") == 0) {
             listDestroy(&alphabeticAthletes);
-            quit(&athletes, &hosts);
+            quit(&athletes, &hosts, &medals);
             break;
         } 
 

@@ -10,12 +10,23 @@
 
 #pragma once
 
+#include "../types/medal.h"
+
 /**
  * @brief Imports athlete information.
  * 
  * @return PtList containing all of the imported athletes.
  */
 PtList loadAthletes();
+
+/**
+ * @brief Imports medal information.
+ *
+ * @param size [out] The size of the resulting medal list.
+ * 
+ * @return PtMedal containing all of the imported medals.
+ */
+void loadMedals(PtMedalList medals);
 
 /**
  * @brief Imports host information.

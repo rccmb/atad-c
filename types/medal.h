@@ -32,8 +32,34 @@ typedef struct medal {
 /** Definition of pointer to the medal data stucture. */
 typedef struct medal *PtMedal;
 
-/** Forward declaration of the medal list data structure. */
-struct medalArrList;
+/** Medal array list structure. */
+typedef struct medalList {
+  PtMedal elements;
+  int size;
+} MedalList;
 
 /** Definition of pointer to the medal list data stucture. */
-typedef struct medalArrList *PtMedalList;
+typedef struct medalList *PtMedalList;
+
+/**
+ * @brief Adds a medal to the medal list.
+ * 
+ * @param discipline [in] Discipline of the medal.
+ * @param game [in] Edition of the olympic games.
+ * @param eventTitle [in] The event title.
+ * @param gender [in] Gender of the event.
+ * @param medalType [in] Medal type. G - Gold, S - Silver, B - Bronze.
+ * @param participant [in] The type of participant. A - Athlete, G - GameTeam
+ * @param athleteId [in] Athlete that won this medal.
+ * @param country [in] Country of the athlete.
+ *
+ * @return Medal that holds the provided information.
+ */
+Medal medalCreate(char *discipline, char *game, char *eventTitle, char *gender, char *medalType, char *participantType, char *athleteId, char *country);
+
+/**
+ * @brief Prints the information of a medal.
+ * 
+ * @param host Pointer to a medal.
+ */
+void medalPrint(PtMedal medal);
