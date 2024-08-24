@@ -14,3 +14,10 @@
  * @brief Print the menu with the available commands.
  */
 void printMenu();
+
+/**
+ * @brief Prints the provided athlete list in a paginated manner.
+ * 
+ * @param athletes [in] The list of athletes to print.
+ */
+void paginate(PtList athletes);

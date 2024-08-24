@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "../adts/list.h"
+
 /**
  * @brief Compare two strings, case insensitive.
  * 
@@ -21,3 +23,49 @@
  * @return <0 if the first non-matching character in str1 is lower (lowercased) than that of str2.
  */
 int strcmpins(char *str1, char *str2);
+
+/**
+ * @brief Orders the given athlete list alphabetically by name.
+ * 
+ * @param athletes [in] The list of athletes to order.
+ */
+void orderAthletes(PtList athletes);
+
+/**
+ * @brief Copies an athlete list.
+ * 
+ * @param athletes [in] The list of athletes.
+ * 
+ * @return PtList with the copied list of athletes.
+ */
+PtList athleteListCopy(PtList athletes);
+
+/**
+ * @brief Checks if the provided copy of ordered athletes has been loaded into memory.
+ *
+ * Saves execution time but not having to repeatedly order athletes by name.
+ * 
+ * @param athletes [in] The list of athletes to copy.
+ * @param athletesCopy [out] Address of the list to hold the ordered athletes, only modified if it's already NULL.
+ */
+void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy);
+
+/**
+ * @brief Extracts the date from a string. 1952-08-03T07:00:00Z -> 1952-08-03
+ *
+ * It is assumed that the string is well formated.
+ * 
+ * @param datetime [in] String with the date and hour.
+ * @param date [in] String to hold only the date.
+ */
+void extractDate(char *datetime, char *date);
+
+/**
+ * @brief Extracts the city from a string with a year. Helsinki 1952 -> Helsinki
+ *
+ * It is assumed that the string is well formated.
+ * 
+ * @param cityyear [in] String with the city and year.
+ * @param city [in] String to hold the city.
+ */
+void extractCity(char *cityyear, char *city);

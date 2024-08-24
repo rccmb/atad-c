@@ -10,12 +10,25 @@
 
 #pragma once
 
-#include "../types/athlete.h"
 #include "../types/medal.h"
-#include "../types/host.h"
 
-PtAthlete load_a(int *size);
+/**
+ * @brief Imports athlete information.
+ * 
+ * @return PtList containing all of the imported athletes.
+ */
+PtList loadAthletes();
 
-PtMedal load_m(int *size);
+/**
+ * @brief Imports medal information.
+ *
+ * @param medals [in] Pointer to the medal instance.
+ */
+void loadMedals(PtMedalList medals);
 
-PtHost load_h(int *size);
+/**
+ * @brief Imports host information.
+ * 
+ * @return PtMap containing all of the imported hosts where key is the game slug and value the host structure.
+ */
+PtMap loadHosts();

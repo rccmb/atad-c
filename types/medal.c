@@ -11,22 +11,47 @@
  * 
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "medal.h"
 
-#define MAX_DISC_LENGTH 50
-#define MAX_GAME_LENGTH 50
-#define MAX_EVENT_LENGTH 100
-#define MAX_ID_A_LENGTH 50
-#define MAX_COUNTRY_LENGTH 50
-#define MAX_GENDER 20
+static char characterMap(char *type);
 
-typedef struct medal {
-  char discipline[MAX_DISC_LENGTH]; // Modalidade.
-  char game[MAX_GAME_LENGTH]; // Nome da edição dos jogos olímpicos.
-  char eventTitle[MAX_EVENT_LENGTH]; // Título da prova.
-  char gender[MAX_GENDER]; // Género da prova.
-  char medalType; // G - GOLD, S - SILVER, B - BRONZE
-  char participantType; // A - Athlete, G - GameTeam
-  char athleteID[MAX_ID_A_LENGTH]; // Identificador de cada atleta.
-  char country[MAX_COUNTRY_LENGTH]; // País pelo qual o atleta competiu.
-} Medal;
+Medal medalCreate(char *discipline, char *game, char *eventTitle, char *gender, char *medalType, char *participantType, char *athleteId, char *country) {
+  Medal m;
+  strcpy(m.discipline, discipline);
+  strcpy(m.game, game);
+  strcpy(m.eventTitle, eventTitle);
+  strcpy(m.gender, gender);
+  m.medalType = characterMap(medalType);
+  m.participantType = characterMap(participantType);
+  strcpy(m.athleteID, athleteId);
+  strcpy(m.country, country);
+  return m;
+}
+
+void medalPrint(PtMedal medal) {
+  if (medal == NULL) return;
+
+  printf("Medal: {\n");
+  printf("\tDiscipline: %s\n", medal->discipline);
+  printf("\tGame: %s\n", medal->game);
+  printf("\tEvent Title: %s\n", medal->eventTitle);
+  printf("\tGender: %s\n", medal->gender);
+  printf("\tMedal Type: %c\n", medal->medalType);
+  printf("\tParticipant Type: %c\n", medal->participantType);
+  printf("\tAthlete ID: %s\n", medal->athleteID);
+  printf("\tCountry: %s\n", medal->country);
+  printf("}\n");
+}
+
+static char characterMap(char *type) {
+  if(strcmp(type, "GOLD") == 0) return 'G';
+  if(strcmp(type, "SILVER") == 0) return 'S';
+  if(strcmp(type, "BRONZE") == 0) return 'B';
+  if(strcmp(type, "Athlete") == 0) return 'A';
+  if(strcmp(type, "GameTeam") == 0) return 'G';
+  return ' ';
+}
