@@ -11,6 +11,7 @@
 #include "types/host.h"
 #include "data/memory.h"
 #include "shows/simple.h"
+#include "shows/complex.h"
 #include "utilities/input.h"
 
 #define COMMAND_LENGTH 32
@@ -95,6 +96,14 @@ int main() {
             readString(gameSlug, MAX_GAME_SLUG_LENGTH);
 
             showHost(hosts, gameSlug);
+        }
+
+        else if(strcmpins(command, "ATHLETE_INFO") == 0) {
+            char athleteId[MAX_ID_A_LENGTH];
+            printf("Athlete ID: ");
+            readString(athleteId, MAX_ID_A_LENGTH);
+
+            showAthleteInfo(athletes, &medals, athleteId);
         }
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");

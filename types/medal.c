@@ -47,6 +47,12 @@ void medalPrint(PtMedal medal) {
   printf("}\n");
 }
 
+void medalType(PtMedal medal, char *type) {
+  if(medal->medalType == 'G') strcpy(type, "Gold");
+  if(medal->medalType == 'S') strcpy(type, "Silver");
+  if(medal->medalType == 'B') strcpy(type, "Bronze");
+}
+
 static char characterMap(char *type) {
   if(strcmp(type, "GOLD") == 0) return 'G';
   if(strcmp(type, "SILVER") == 0) return 'S';

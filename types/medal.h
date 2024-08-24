@@ -60,6 +60,15 @@ Medal medalCreate(char *discipline, char *game, char *eventTitle, char *gender, 
 /**
  * @brief Prints the information of a medal.
  * 
- * @param host Pointer to a medal.
+ * @param medal Pointer to a medal.
  */
 void medalPrint(PtMedal medal);
+
+/**
+ * @brief Receives a medal and returns it's type in extended form. 
+ *
+ * A medal whose type is 'G', will return "Gold".
+ * 
+ * @param medal Pointer to a medal.
+ */
+void medalType(PtMedal medal, char *type);

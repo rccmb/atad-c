@@ -87,6 +87,22 @@ void extractCity(char *cityyear, char *city) {
   city[length - 5] = '\0';
 }
 
+bool getAthlete(PtList athletes, char *athleteId, PtAthlete ath) {
+  if(athletes == NULL) return false;
+
+  int size;
+  listSize(athletes, &size);
+  for(int i = 0; i < size; i++) {
+    Athlete curr;
+    listGet(athletes, i, &curr);
+    if(strcmp(curr.athleteID, athleteId) == 0) {
+      *ath = curr;
+      return true;
+    }
+  }
+  return false;
+}
+
 static int partitionAthletes(PtList athletes, int low, int high) {
   Athlete pivot;
   listGet(athletes, high, &pivot);
