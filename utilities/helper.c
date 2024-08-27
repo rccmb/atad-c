@@ -19,6 +19,7 @@
 #include "helper.h"
 
 static int partitionAthletes(PtList athletes, int low, int high);
+
 static void quicksortAthletes(PtList athletes, int low, int high);
 
 int strcmpins(char *str1, char *str2) {

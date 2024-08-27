@@ -9,6 +9,7 @@
 #include "types/athlete.h"
 #include "types/medal.h"
 #include "types/host.h"
+#include "adts/set.h"
 #include "data/memory.h"
 #include "shows/simple.h"
 #include "shows/complex.h"
@@ -17,7 +18,6 @@
 #define COMMAND_LENGTH 32
 
 int main() {
-
     printf("Olympic Games Data Analysis\n");
     printf("---------------------------\n");
 
@@ -31,6 +31,12 @@ int main() {
     medals.size = 0;
 
     PtMap hosts = NULL;
+
+    // DEBUG
+    loadMedals(&medals);
+    showDisciplineStatistics(&medals, "tokyo-2020");
+    quit(&athletes, &hosts, &medals);
+    return EXIT_FAILURE;
 
     while(true) {
         char command[COMMAND_LENGTH];
@@ -98,12 +104,50 @@ int main() {
             showHost(hosts, gameSlug);
         }
 
+        else if(strcmpins(command, "DISCIPLINE_STATISTICS") == 0) {
+            char gameSlug[MAX_GAME_SLUG_LENGTH];
+            printf("Game Slug: ");
+            readString(gameSlug, MAX_GAME_SLUG_LENGTH);
+
+            showDisciplineStatistics(&medals, gameSlug);
+        }
+
         else if(strcmpins(command, "ATHLETE_INFO") == 0) {
             char athleteId[MAX_ID_A_LENGTH];
             printf("Athlete ID: ");
             readString(athleteId, MAX_ID_A_LENGTH);
 
             showAthleteInfo(athletes, &medals, athleteId);
+        }
+
+        else if(strcmpins(command, "TOPN") == 0) {
+            checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
+
+            int n;
+            printf("Number of Athletes: ");
+            readInteger(&n);
+
+            int start, end;
+            printf("Start Year: ");
+            readInteger(&start);
+            printf("End Year: ");
+            readInteger(&end);
+            if(end < start) {
+                printf("End Year must not be smaller than the start Year!\n");
+                printf("End Year: ");
+                readInteger(&end);
+            }
+
+            char season[MAX_GAME_SEASON_LENGTH];
+            printf("Season (Winter, Summer): ");
+            readString(season, MAX_GAME_SEASON_LENGTH);
+            while(strcmpins(season, "Winter") != 0 && strcmpins(season, "Summer") != 0) {
+                printf("Season must be either \"Winter\" or \"Summer\"!\n");
+                printf("Season (Winter, Summer): ");
+                readString(season, MAX_GAME_SEASON_LENGTH);
+            }
+            
+            showTopN(alphabeticAthletes, &medals, hosts, n, start, end, season);
         }
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");

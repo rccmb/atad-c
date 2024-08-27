@@ -38,7 +38,7 @@ static void heapWipe(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
     if(hMap == NULL) *ptHosts = NULL;
   } 
 
-  if(medals != NULL) {
+  if(medals->elements != NULL) {
     free(medals->elements);
     medals->elements = NULL;
     medals->size = 0;
@@ -50,7 +50,7 @@ static void heapWipe(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
 }
 
 void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
-  if(*ptAthletes == NULL && *ptHosts == NULL && medals == NULL) {
+  if(*ptAthletes == NULL && *ptHosts == NULL && medals->elements == NULL) {
     printf("There is nothing to clear. Have you already imported Athletes (LOAD_A), Medals (LOAD_M), or Hosts (LOAD_H)?\n");
   }
 
@@ -58,7 +58,7 @@ void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
 }
 
 void quit(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
-  printf("Clearing memory before exiting...");
+  printf("Clearing memory before exiting...\n");
 
   heapWipe(ptAthletes, ptHosts, medals);
 

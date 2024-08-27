@@ -43,6 +43,7 @@ PtList loadAthletes() {
   int count = 0;
   char line[1024];
   fgets(line, 1024, stream);
+  printf("Importing athletes...\n");
   while(fgets(line, 1024, stream)) {
 
     char *tmp = strdup(line);  
@@ -91,6 +92,7 @@ void loadMedals(PtMedalList medals) {
   int count = 0;
   char line[1024];
   fgets(line, 1024, stream);
+  printf("Importing medals...\n");
   while(fgets(line, 1024, stream)) {
 
     char *tmp = strdup(line);  
@@ -139,6 +141,7 @@ PtMap loadHosts() {
   int count = 0;
   char line[1024];
   fgets(line, 1024, stream);
+  printf("Importing hosts...\n");
   while(fgets(line, 1024, stream)) {
 
     char *tmp = strdup(line);  

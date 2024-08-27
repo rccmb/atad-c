@@ -10,7 +10,7 @@
 
 #pragma once
 
-/** Forward declaration of the data structure. */
+/** Declaration of the data structure. */
 typedef struct datetime {
   int year;
   int month;
@@ -56,3 +56,13 @@ void datetimePrint(PtDateTime dt);
  * @param dt [in] Pointer to a DateTime with the date.
  */
 void datePrint(PtDateTime dt);
+
+/**
+ * @brief Gets the year from a datetime.
+ * 
+ * @param dt [in] Pointer to a DateTime with the date.
+ *
+ * @return Integer representing the year in the datetime, or
+ * @return -1 if the pointer is null.
+ */
+int datetimeYear(PtDateTime dt);

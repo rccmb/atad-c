@@ -10,6 +10,8 @@
 
 #pragma once
 
+#define LINE_LENGTH 150
+
 /**
  * @brief Print the menu with the available commands.
  */

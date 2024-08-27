@@ -17,11 +17,10 @@
 #define MAX_COUNTRY_LENGTH 50
 #define MAX_GENDER 20
 
-/** Medal structure. */
 typedef struct medal {
   char discipline[MAX_DISC_LENGTH]; // Modalidade.
   char game[MAX_GAME_LENGTH]; // Nome da edição dos jogos olímpicos.
-  char eventTitle[MAX_EVENT_LENGTH]; // Título da prova.
+  char eventTitle[MAX_EVENT_LENGTH]; // Título da prova. 
   char gender[MAX_GENDER]; // Género da prova.
   char medalType; // G - GOLD, S - SILVER, B - BRONZE
   char participantType; // A - Athlete, G - GameTeam
@@ -29,17 +28,31 @@ typedef struct medal {
   char country[MAX_COUNTRY_LENGTH]; // País pelo qual o atleta competiu.
 } Medal;
 
-/** Definition of pointer to the medal data stucture. */
 typedef struct medal *PtMedal;
 
-/** Medal array list structure. */
 typedef struct medalList {
-  PtMedal elements;
-  int size;
+  PtMedal elements; // Elements inside the medal list.
+  int size; // Current size of the medal list.
 } MedalList;
 
-/** Definition of pointer to the medal list data stucture. */
 typedef struct medalList *PtMedalList;
+
+typedef struct countryMedal {
+  char country[MAX_COUNTRY_LENGTH]; // Country name.
+  int medalCount; // Medal count of this country.
+} CountryMedal;
+
+typedef struct countryMedal *PtCountryMedal;
+
+typedef struct medalAccumulator {
+  char discipline[MAX_DISC_LENGTH]; // Discipline associated with this medal accumulator.
+  CountryMedal *countries; // Countries with medals in this discipline.
+  int countriesSize; // Size of the countries array.
+  int women; // Number of women with medals. (Mixed do not count).
+  int totalParticipants; // Number of total participants.
+} MedalAccumulator;
+
+typedef struct medalAccumulator *PtMedalAccumulator;
 
 /**
  * @brief Adds a medal to the medal list.
@@ -72,3 +85,15 @@ void medalPrint(PtMedal medal);
  * @param medal Pointer to a medal.
  */
 void medalType(PtMedal medal, char *type);
+
+// TODO
+MedalAccumulator medalAccumulatorCreate(char *discipline);
+
+// TODO
+bool medalAccumulatorAddMedal(PtMedalAccumulator accum, PtMedal medal);
+
+// TODO
+void accumulatorPrint(PtMedalAccumulator accum);
+
+// TODO
+CountryMedal countryMedalCreate(char *country);

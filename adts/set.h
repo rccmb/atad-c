@@ -10,12 +10,14 @@
 
 #pragma once
 
-#define SET_OK				0
-#define SET_NULL			1 
-#define SET_NO_MEMORY		2
-#define SET_EMPTY			3
-#define SET_FULL			4
-#define SET_CONTAINS			5
+#define SET_OK 0
+#define SET_NULL 1 
+#define SET_NO_MEMORY	2
+#define SET_EMPTY 3
+#define SET_FULL 4
+#define SET_ERROR 5
+#define SET_DUPLICATE 6
+#define SET_NOT_FOUND 7
 
 #include "setElem.h"
 #include <stdbool.h>
@@ -35,13 +37,12 @@ typedef struct setImpl *PtSet;
 PtSet setCreate();
 
 /**
- * @brief Add an element to the set if it doesn't already exist.
+ * @brief Add an element to the set. If it already exists, then silently replace it.
  * 
  * @param set [in] pointer to the set.
  * @param elem [in] element to add.
  * 
  * @return SET_OK if successful, or
- * @return SET_CONTAINS if the element is already in the set, or
  * @return SET_FULL if no capacity available, or
  * @return SET_NO_MEMORY if unsufficient memory for allocation, or
  * @return SET_NULL if 'set' is NULL.
@@ -120,7 +121,9 @@ bool setIsEmpty(PtSet set);
 int setClear(PtSet set);
 
 /**
- * @brief Gets the values from a given set.
+ * @brief Gets the values from a given set. 
+ *
+ * The size of the dynamic array will be the size of the set.
  * 
  * @param set [in] pointer to the set.
  * 

@@ -22,4 +22,7 @@
  * @param medals [in] List of medals.
  * @param athleteId [in] ID of the athlete whose info will be shown.
  */
-void showAthleteInfo(PtList athletes, MedalList *medals, char *athleteId);
+void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId);
+
+// TODO
+void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start, int end, char *season);

@@ -18,7 +18,9 @@
 #include "datetime.h"
 
 static bool isLeapYear(int year);
+
 static int getDaysInMonth(int month, int year);
+
 static int calculateDaysSinceStart(DateTime dt);
 
 DateTime datetimeCreate(char *date) {
@@ -44,11 +46,18 @@ int calculateDayDifference(DateTime startDate, DateTime endDate) {
 }
 
 void datetimePrint(PtDateTime dt) {
+  if(dt == NULL) return;
   printf("%04d-%02d-%02d %02d:%02d\n", dt->year, dt->month, dt->day, dt->hour, dt->minutes);
 }
 
 void datePrint(PtDateTime dt) {
+  if(dt == NULL) return;
   printf("%04d-%02d-%02d\n", dt->year, dt->month, dt->day);
+}
+
+int datetimeYear(PtDateTime dt) {
+  if(dt == NULL) return -1;
+  return dt->year;
 }
 
 static bool isLeapYear(int year) {

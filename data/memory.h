@@ -24,7 +24,7 @@
  *
  * @param ptAthletes [in] Address of pointer to the athlete list.
  * @param ptHosts [in] Address of pointer to the hosts map.
- * @param ptMedals [in] Pointer to the medals list.
+ * @param medals [in] Pointer to the medals list.
  */
 void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);
 
@@ -33,6 +33,6 @@ void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);
  * 
  * @param ptAthletes [in] Address of pointer to the athlete list.
  * @param ptHosts [in] Address of pointer to the hosts map.
- * @param ptMedals [in] Pointer to the medals list.
+ * @param medals [in] Pointer to the medals list.
  */
 void quit(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);

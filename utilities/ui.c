@@ -17,7 +17,6 @@
 #include "ui.h"
 
 #define PAGE_LENGTH 20
-#define LINE_LENGTH 150
 
 void printMenu() {
   printf("Command               | Description\n");
