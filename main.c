@@ -32,12 +32,6 @@ int main() {
 
     PtMap hosts = NULL;
 
-    // DEBUG
-    loadMedals(&medals);
-    showDisciplineStatistics(&medals, "tokyo-2020");
-    quit(&athletes, &hosts, &medals);
-    return EXIT_FAILURE;
-
     while(true) {
         char command[COMMAND_LENGTH];
         printf("MENU Command > ");

@@ -184,15 +184,44 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
   setSize(set, &size);
 
   printf("Discipline statistics for %s.\n", gameSlug);
-  printf("\t-> There were %d different disciplines.\n", size);
-  printf("%45s %45s %10s %47s\n", "DISCIPLINE", "TOP COUNTRY", "MEDALS", "WOMEN RATIO");
+  printf("-> There were %d different disciplines.\n", size);
+
+  printf("%60s %60s %10s %17s\n", "DISCIPLINE", "TOP COUNTRY", "MEDALS", "WOMEN RATIO");
   for(int i = 0; i < LINE_LENGTH; i++) {
     printf("-");
   }
   printf("\n");
+
   for(int i = 0; i < size; i++) {
-    
+    MedalAccumulator currentMA = accumulators[i];
+
+    char country[MAX_COUNTRY_LENGTH];
+    int max = 0;
+    int tied = 0;
+    for(int j = 0; j < currentMA.countriesSize; j++) {
+      if(currentMA.countries[j].medalCount == max) {
+        tied++;
+      }
+      if(currentMA.countries[j].medalCount > max) {
+        max = currentMA.countries[j].medalCount;
+        strcpy(country, currentMA.countries[j].country);
+        tied = 0;
+      }
+    }
+
+    printf("%5d. %53s ", i + 1, currentMA.discipline);
+    tied == 0 
+      ? printf("%60s ", country)
+      : printf("%56s %s(%d)", country, "*", tied);
+    printf("%10d %17.2f", max, (double) currentMA.women / currentMA.totalParticipants);
+    printf("\n");
+
+    free(accumulators[i].countries);
   }
 
+  printf("*(tie count) represents the number of tied countries for first place.\n");
+  printf("The women ration is calculated with the specific amount of women. All other types go towards total participations.\n");
+
+  free(accumulators);
   setDestroy(&set);
 }
