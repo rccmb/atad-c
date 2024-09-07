@@ -11,6 +11,8 @@
 #pragma once
 
 #include "../adts/list.h"
+#include "../adts/map.h"
+#include "../types/medal.h"
 
 /**
  * @brief Compare two strings, case insensitive.
@@ -78,3 +80,12 @@ void extractCity(char *cityyear, char *city);
  * @param ath [out] Adress to hold the found athlete.
  */
 bool getAthlete(PtList athletes, char *athleteId, PtAthlete ath);
+
+// TODO
+bool athletesIsNull(PtList athletes);
+
+// TODO
+bool medalsIsNull(PtMedalList medals);
+
+// TODO
+bool hostsIsNull(PtMap hosts);

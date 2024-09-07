@@ -34,6 +34,7 @@ void setElemPrint(SetElem elem);
  * 
  * This function provides the comparison criteria
  * between two set elements.
+ * It is up to the caller to determine how the elements will be compared.
  * 
  * @param elem1 [in] a set element.
  * @param elem2 [in] another set element.
@@ -47,8 +48,8 @@ int setElemCompare(SetElem elem1, SetElem elem2);
 /**
  * @brief Returns the hash of the SetElem
  * 
+ * How the hash of the SetElem will be calculated.
  * It is up to the caller to determine how the SetElem will be hashed.
- * If it has any fields, what fields will be used to determine the hash.
  * 
  * @param elem1 [in] a set element to be hashed.
  *

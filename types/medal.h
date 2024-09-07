@@ -86,7 +86,13 @@ void medalPrint(PtMedal medal);
  */
 void medalType(PtMedal medal, char *type);
 
-// TODO
+/**
+ * @brief Creates a medal accumulator. Auxiliary structure for DISCIPLINE_STATISTICS.
+ * 
+ * @param discipline [in] The name of the discipline associated with this accumulator.
+ *
+ * @return A new MedalAccumulator.
+ */
 MedalAccumulator medalAccumulatorCreate(char *discipline);
 
 // TODO
@@ -94,6 +100,3 @@ bool medalAccumulatorAddMedal(PtMedalAccumulator accum, PtMedal medal);
 
 // TODO
 void accumulatorPrint(PtMedalAccumulator accum);
-
-// TODO
-CountryMedal countryMedalCreate(char *country);

@@ -96,8 +96,25 @@ int setRemove(PtSet set, SetElem elem) {
 }
 
 bool setContains(PtSet set, SetElem elem) {
-  // TODO
-  return true;
+  if(set == NULL) return SET_NULL;
+
+  if(!ensureCapacity(set)) return SET_NO_MEMORY;
+
+  int position = findPosition(set, elem);
+  if(position == -1) return SET_ERROR;
+
+  int capacity = getPrime(set->index);
+  for(int i = 0; i < capacity; i++) {
+    if(set->nodes[position].occupied == 0 && set->nodes[position].deleted == 0) return false;
+    if(set->nodes[position].occupied == 1) {
+      if(setElemCompare(set->nodes[position].element, elem) == 0) {
+        return true;
+      }
+    }
+    position = (position + 1) % capacity;
+  }
+  
+  return false;
 }
 
 int setSize(PtSet set, int *ptSize) {

@@ -24,5 +24,15 @@
  */
 void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId);
 
-// TODO
+/**
+ * @brief Shows the top N athletes for an interval of years and game season.
+ * 
+ * @param athletes [in] List of athletes.
+ * @param medals [in] List of medals.
+ * @param host [in] Map of the hosts.
+ * @param n [in] Number of athletes to show.
+ * @param start [in] Starting year for the filter.
+ * @param end [in] Ending year for the filter.
+ * @param season [in] The game season. Winter or summer.
+ */
 void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start, int end, char *season);

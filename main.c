@@ -12,12 +12,15 @@
 #include "adts/set.h"
 #include "data/memory.h"
 #include "shows/simple.h"
+#include "types/stringWrap.h"
 #include "shows/complex.h"
 #include "utilities/input.h"
 
 #define COMMAND_LENGTH 32
 
 int main() {
+    // TODO Test setContains.
+
     printf("Olympic Games Data Analysis\n");
     printf("---------------------------\n");
 
@@ -66,11 +69,17 @@ int main() {
         } 
 
         else if(strcmpins(command, "SHOW_ALL") == 0) {
+            bool missing = athletesIsNull(athletes);
+            if(missing) continue;
+
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
             showAll(alphabeticAthletes);
         }
         
         else if(strcmpins(command, "SHOW_PARTICIPATIONS") == 0) {
+            bool missing = athletesIsNull(athletes);
+            if(missing) continue;
+
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
 
             int participationCount;
@@ -81,6 +90,9 @@ int main() {
         } 
 
         else if(strcmpins(command, "SHOW_FIRST") == 0) {
+            bool missing = athletesIsNull(athletes);
+            if(missing) continue;
+
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
 
             int firstYear;
@@ -91,6 +103,9 @@ int main() {
         }
 
         else if(strcmpins(command, "SHOW_HOST") == 0) {
+            bool missing = hostsIsNull(hosts);
+            if(missing) continue;
+
             char gameSlug[MAX_GAME_SLUG_LENGTH];
             printf("Game Slug: ");
             readString(gameSlug, MAX_GAME_SLUG_LENGTH);
@@ -99,6 +114,9 @@ int main() {
         }
 
         else if(strcmpins(command, "DISCIPLINE_STATISTICS") == 0) {
+            bool missing = medalsIsNull(&medals);
+            if(missing) continue;
+
             char gameSlug[MAX_GAME_SLUG_LENGTH];
             printf("Game Slug: ");
             readString(gameSlug, MAX_GAME_SLUG_LENGTH);
@@ -107,6 +125,9 @@ int main() {
         }
 
         else if(strcmpins(command, "ATHLETE_INFO") == 0) {
+            bool missing = athletesIsNull(athletes) | medalsIsNull(&medals);
+            if(missing) continue;
+                
             char athleteId[MAX_ID_A_LENGTH];
             printf("Athlete ID: ");
             readString(athleteId, MAX_ID_A_LENGTH);
@@ -115,6 +136,9 @@ int main() {
         }
 
         else if(strcmpins(command, "TOPN") == 0) {
+            bool missing = athletesIsNull(athletes) | medalsIsNull(&medals) | hostsIsNull(hosts);
+            if(missing) continue;
+
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
 
             int n;

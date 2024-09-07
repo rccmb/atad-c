@@ -18,6 +18,8 @@
 
 #include "medal.h"
 
+static CountryMedal countryMedalCreate(char *country);
+
 static char characterMap(char *type);
 
 Medal medalCreate(char *discipline, char *game, char *eventTitle, char *gender, char *medalType, char *participantType, char *athleteId, char *country) {
@@ -102,7 +104,7 @@ void accumulatorPrint(PtMedalAccumulator accum) {
   printf("There were %d total participations, of which %d were specifically women.\n", accum->totalParticipants, accum->women);
 }
 
-CountryMedal countryMedalCreate(char *country) {
+static CountryMedal countryMedalCreate(char *country) {
   CountryMedal cm;
   strcpy(cm.country, country);
   cm.medalCount = 1;

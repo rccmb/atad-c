@@ -26,19 +26,13 @@
 #include "simple.h"
 
 void showAll(PtList athletes) {
-  if(athletes == NULL) {
-    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
-    return;
-  }
+  if(athletes == NULL) return;
 
   paginate(athletes);
 }
 
 void showParticipations(PtList athletes, int participationCount) {
-  if(athletes == NULL) {
-    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
-    return;
-  }
+  if(athletes == NULL) return;
 
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
@@ -69,10 +63,7 @@ void showParticipations(PtList athletes, int participationCount) {
 }
 
 void showFirst(PtList athletes, int firstYear) {
-  if(athletes == NULL) {
-    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
-    return;
-  }
+  if(athletes == NULL) return;
 
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
@@ -103,10 +94,7 @@ void showFirst(PtList athletes, int firstYear) {
 }
 
 void showHost(PtMap hosts, char *gameSlug) {
-  if(hosts == NULL) {
-    printf("No Hosts provided. Have you imported them? (LOAD_H)\n");
-    return;
-  }
+  if(hosts == NULL) return;
 
   StringWrap swr = stringWrapCreate(gameSlug);
 
@@ -125,10 +113,7 @@ void showHost(PtMap hosts, char *gameSlug) {
 }
 
 void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
-  if(medals->elements == NULL) {
-    printf("No Medals provided. Have you imported them? (LOAD_M)\n");
-    return;
-  } 
+  if(medals->elements == NULL) return;
 
   PtSet set = setCreate();
   if(set == NULL) {
@@ -146,9 +131,8 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
       setSize(set, &accumulatorSize);
 
       StringWrap swr = stringWrapCreate(currentMedal.discipline);
-      int result = setAdd(set, swr);
-
-      if(result == SET_DUPLICATE) {
+      
+      if(setContains(set, swr)) {
         for(int i = 0; i < accumulatorSize; i++) {
           if(strcmp(accumulators[i].discipline, currentMedal.discipline) == 0) {
             bool added = medalAccumulatorAddMedal(&(accumulators[i]), &currentMedal);
@@ -160,6 +144,11 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
           }
         }
       } else {
+        int result = setAdd(set, swr);
+        if(result != SET_OK) {
+          printf("[DISC_STATS_ACCUMULATOR] Could not add fresh entry to set.\n");
+        }
+
         MedalAccumulator *newAccumulators = (MedalAccumulator*) realloc(accumulators, sizeof(MedalAccumulator) * (accumulatorSize + 1));
         if(newAccumulators == NULL) {
           printf("[DISC_STATS_ACCUMULATOR] Memory error ocurred.\n");
@@ -219,7 +208,7 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
     free(accumulators[i].countries);
   }
 
-  printf("*(tie count) represents the number of tied countries for first place.\n");
+  printf("*(tie count) represents the number of countries tied for first place.\n");
   printf("The women ration is calculated with the specific amount of women. All other types go towards total participations.\n");
 
   free(accumulators);

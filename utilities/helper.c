@@ -104,6 +104,30 @@ bool getAthlete(PtList athletes, char *athleteId, PtAthlete ath) {
   return false;
 }
 
+bool athletesIsNull(PtList athletes) {
+  if(athletes == NULL) {
+    printf("No Athletes provided. Have you imported them? (LOAD_A)\n");
+    return true;
+  }
+  return false;
+}
+
+bool medalsIsNull(PtMedalList medals) {
+  if(medals->elements == NULL) {
+    printf("No Medals provided. Have you imported them? (LOAD_M)\n");
+    return true;
+  }
+  return false;
+}
+
+bool hostsIsNull(PtMap hosts) {
+  if(hosts == NULL) {
+    printf("No hosts provided. Have you imported them? (LOAD_H)\n");
+    return true;
+  }
+  return false;
+}
+
 static int partitionAthletes(PtList athletes, int low, int high) {
   Athlete pivot;
   listGet(athletes, high, &pivot);

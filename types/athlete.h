@@ -25,9 +25,24 @@ typedef struct athlete {
 /** Definition of pointer to the data stucture. */
 typedef struct athlete *PtAthlete;
 
+typedef struct country {
+  char *country;
+  int year;
+} Country;
+
+typedef struct athleteMedals {
+  char athleteID[MAX_ID_LENGTH]; // Athlete ID.
+  int medalCount; // The amount of medals this athlete won.
+  Country *countries;
+  int countriesSize;
+} AthleteMedals;
+
+/** Definition of pointer to the data stucture. */
+typedef struct athleteMedals *PtAthleteMedals;
+
 /**
  * @brief Create a new Athlete.
- * 
+ *  
  * @param athleteID [in] ID of the athlete.
  * @param athleteName [in] Name of the athlete.
  * @param gamesParticipations [in] Participation count of the athlete.
@@ -44,3 +59,9 @@ Athlete athleteCreate(char *athleteID, char *athleteName, int gamesParticipation
  * @param athlete Pointer to an athlete.
  */
 void athletePrint(PtAthlete athlete);
+
+// TODO DOCS.
+AthleteMedals athleteMedalsCreate(char *athleteID);
+
+// TODO DOCS.
+Country athleteCountryCreate(char *country, int year);
