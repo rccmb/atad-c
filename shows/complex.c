@@ -17,6 +17,7 @@
 #include "../types/medal.h"
 #include "../adts/map.h"
 #include "../types/athlete.h"
+#include "../types/athleteMedals.h"
 #include "../adts/set.h"
 #include "../adts/list.h"
 
@@ -34,6 +35,11 @@ void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId) {
   }
 
   Medal* entries = (Medal*) malloc(sizeof(Medal));
+  if(entries == NULL) {
+    printf("[ATHLETE_INFO] Something went wrong alloc'ing the medal entries.\n");
+    // TODO DESTROY
+    return;
+  }
   int entriesSize = 0;
 
   char athleteCountry[MAX_COUNTRY_LENGTH];
@@ -42,6 +48,11 @@ void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId) {
     if(strcmp(medals->elements[i].athleteID, athleteId) == 0) {
       if(entriesSize == 0) strcpy(athleteCountry, medals->elements[i].country);
       entries = (Medal*) realloc(entries, sizeof(Medal) * (entriesSize + 1));
+      if(entries == NULL) {
+        printf("[ATHLETE_INFO] Something went wrong realloc'ing the medal entries.\n");
+        // TODO DESTROY
+        return;
+      }
       entries[entriesSize++] = medals->elements[i];
     }
   }
@@ -85,8 +96,11 @@ void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start
   if(athletes == NULL || medals->elements == NULL || hosts == NULL) return;
 
   PtSet validHosts = setCreate();
-  if(validHosts == NULL) {
-    printf("[TOPN_HOSTS] Something went wrong initializing the hosts set.\n");
+  Host* validHostsValues = (Host*) malloc(sizeof(Host));
+  int validHostsValuesSize = 0;
+  if(validHosts == NULL || validHostsValues ==  NULL) {
+    printf("[TOPN] Something went wrong initializing the valid hosts set or array.\n");
+    // TODO DESTROY
     return;
   }
 
@@ -96,81 +110,83 @@ void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start
   for(int i = 0; i < sz; i++) {
     if(
       strcmpins(hostsValues[i].gameSeason, season) == 0
-      && start >= datetimeYear(&(hostsValues[i].gameStartDate))
-      && end <= datetimeYear(&(hostsValues[i].gameEndDate))
+      && start <= datetimeYear(&(hostsValues[i].gameStartDate))
+      && end >= datetimeYear(&(hostsValues[i].gameEndDate))
     ) {
       StringWrap swrGameSlug = stringWrapCreate(hostsValues[i].gameSlug);
       int result = setAdd(validHosts, swrGameSlug);
       if(result != SET_OK && result != SET_DUPLICATE) {
-        printf("[TOPN_HOSTS] Failed to add value to valid hosts set.\n");
-        setDestroy(&validHosts);
+        printf("[TOPN] Failed to add value to valid hosts set.\n");
+        // TODO DESTROY
         return;
+      } else {
+        validHostsValues = (Host*) realloc(validHostsValues, sizeof(Host) * (validHostsValuesSize + 1));
+        if(validHostsValues == NULL) {
+          printf("[TOPN] Something went wrong realloc'ing the valid hosts array.\n");
+          // TODO DESTROY
+          return;
+        }
+        validHostsValues[validHostsValuesSize++] = hostsValues[i];
       }
     }
   }
 
   PtSet validAthletes = setCreate();
-
-  int validHostsSize = 0;
-  setSize(validHosts, &validHostsSize);
-
-  AthleteMedals* athMed = (AthleteMedals*) malloc(sizeof(AthleteMedals) * validHostsSize);
-  int athMedSize = 0;
-  if(athMed == NULL) {
-    // TODO ERROR.
+  AthleteMedals *athleteMedals = (AthleteMedals*) malloc(sizeof(AthleteMedals));
+  int athleteMedalsSize = 0;
+   if(validAthletes == NULL || athleteMedals ==  NULL) {
+    printf("[TOPN] Something went wrong initializing the valid athletes set or athlete medals array.\n");
+    // TODO DESTROY
+    return;
   }
 
   for(int i = 0; i < medals->size; i++) {
-    StringWrap swrHost = stringWrapCreate(medals->elements[i].game)
-    if(setContains(validHosts, swrHost)) {
-      StringWrap swrAthlete = stringWrapCreate(medals->elements[i].athleteID);
-      if(setContains(validAdthletes, swrAthlete)) {
-        for(int j = 0; j < athMedSize; j++) {
-          if(strcmp(athMed[j].athleteID, medals->elements[i].athleteID) == 0) {
-            athMed[j].medalCount++;
-            
-            bool found = false;
-            for(int k = 0; k < athMed[j].countriesSize; k++) {
-              if(strcmp(medals->elements[i].country, athMed[j].countries[k].country) == 0) {
-                // TODO CHECK YEAR.
-                found = true;
+    if(strcmp(medals->elements[i].athleteID, "") != 0) {
+      StringWrap swrEdition = stringWrapCreate(medals->elements[i].game);
+      if(setContains(validHosts, swrEdition)) {
+        StringWrap swrAthId = stringWrapCreate(medals->elements[i].athleteID);
+        if(setContains(validAthletes, swrAthId)) {
+          for(int j = 0; j < athleteMedalsSize; j++) {
+            if(strcmp(athleteMedals[j].athleteID, medals->elements[i].athleteID) == 0) {
+              bool added = athleteMedalsAddMedal(&(athleteMedals[j]), &(medals->elements[i]));
+              if(!added) {
+                printf("[TOPN] Something went wrong adding medal to EXISTING athlete medals.\n");
+                // TODO DESTROY
+                return;
               }
-            }
-
-            if(!found) {
-              athMed[j].countries = (Country*) realloc(athMed[j].countries, sizeof(Country) * (athMed[j].countriesSize + 1));
-              if(athMed[j].countries == NULL) {
-                // TODO ERROR.
-              }
-
-              athMed[j].countries[athMed[j].countriesSize++] = athleteCountryCreate(medals->elements[i].country, 0); // TODO FIX YEAR.
+              break;
             }
           }
-        }
-      } else {
-        int result = setAdd(validAthletes, swrAthlete);
-        if(result != SET_OK) {
-          // TOOD ERROR.
-        }
+        } else {
+          setAdd(validAthletes, swrAthId);
 
-        athMed[athMedSize] = athleteMedalsCreate(medals->elements[i].athleteID);
-        athMed[athMedSize++].medalCount++;
-
-        athMed[j].countries = (Country*) realloc(athMed[j].countries, sizeof(Country) * (athMed[j].countriesSize + 1));
-        athMed[j].countries[athMed[j].countriesSize++] = athleteCountryCreate(medals->elements[i].country, 0); 
-        if(athMed[j].countries == NULL) {
-          // TODO ERROR.
+          athleteMedals = (AthleteMedals*) realloc(athleteMedals, sizeof(AthleteMedals) * (athleteMedalsSize + 1));
+          if(athleteMedals == NULL) {
+            printf("[TOPN] Something went wrong initializing the valid athletes set or athlete medals array.\n");
+            // TODO DESTROY
+            return;
+          }
+          
+          athleteMedals[athleteMedalsSize] = athleteMedalsCreate(medals->elements[i].athleteID);
+          bool added = athleteMedalsAddMedal(&(athleteMedals[athleteMedalsSize]), &(medals->elements[i]));
+          athleteMedalsSize++;
+          if(!added) {
+            printf("[TOPN] Something went wrong adding medal to FRESH athlete medals.\n");
+            // TODO DESTROY
+            return;
+          }
         }
       }
     }
   }
 
-  athMed = (AthleteMedals*) realloc(athMed, sizeof(AthleteMedals) * athMedSize);
-  
-  // TODO DESTROY ATHMED.
+
+
+  for(int i = athleteMedalsSize - 1; i >= 0; i--) {
+    printf("%d -> %s %d\n", i, athleteMedals[i].athleteID, athleteMedals[i].medalCount);
+  }
 
   setDestroy(&validHosts);
-  setDestroy(&validAthletes);
+  free(validHostsValues);
   free(hostsValues);
-  free(validHosts);
 }

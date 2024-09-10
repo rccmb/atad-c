@@ -106,7 +106,7 @@ bool setContains(PtSet set, SetElem elem) {
   int capacity = getPrime(set->index);
   for(int i = 0; i < capacity; i++) {
     if(set->nodes[position].occupied == 0 && set->nodes[position].deleted == 0) return false;
-    if(set->nodes[position].occupied == 1) {
+    if(set->nodes[position].occupied == 1 && set->nodes[i].deleted == 0) {
       if(setElemCompare(set->nodes[position].element, elem) == 0) {
         return true;
       }
@@ -147,7 +147,7 @@ SetElem* setValues(PtSet set) {
 
   int j = 0;
   for(int i = 0; i < getPrime(set->index); i++) {
-    if(set->nodes[i].occupied == 1) {
+    if(set->nodes[i].occupied == 1 && set->nodes[i].deleted == 0) {
       newValues[j++] = set->nodes[i].element;
     }
   }

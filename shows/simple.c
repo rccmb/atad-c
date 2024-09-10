@@ -17,6 +17,7 @@
 #include "../adts/map.h"
 #include "../adts/list.h"
 #include "../types/athlete.h"
+#include "../types/medalAccumulator.h"
 #include "../types/host.h"
 #include "../utilities/ui.h"
 #include "../utilities/input.h"
@@ -36,7 +37,8 @@ void showParticipations(PtList athletes, int participationCount) {
 
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
-    printf("[SHOW_PARTICIPATIONS_FILTERED_LIST] Memory error ocurred.\n");
+    printf("[SHOW_PARTICIPATIONS] Memory error ocurred while creating filtered list.\n");
+    // TODO DESTROY
     return;
   }
 
@@ -67,7 +69,8 @@ void showFirst(PtList athletes, int firstYear) {
 
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
-    printf("[SHOW_FIRST_FILTERED_LIST] Memory error ocurred.\n");
+    printf("[SHOW_FIRST] Memory error ocurred while creating filtered list.\n");
+    // TODO DESTROY
     return;
   }
 
@@ -117,7 +120,8 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
 
   PtSet set = setCreate();
   if(set == NULL) {
-    printf("[DISC_STATS_SET] Memory error ocurred.\n");
+    printf("[DISCIPLINE_STATISTICS] Memory error ocurred while creating set.\n");
+    // TODO DESTROY
     return;
   }
 
@@ -137,21 +141,20 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
           if(strcmp(accumulators[i].discipline, currentMedal.discipline) == 0) {
             bool added = medalAccumulatorAddMedal(&(accumulators[i]), &currentMedal);
             if(!added) {
-              printf("[DISC_STATS_ACCUMULATOR] Something went wrong adding medal to old accumulator...\n");
+              printf("[DISCIPLINE_STATISTICS] Error ocurred while adding medal to EXISTING accumulator.\n");
+              // TODO DESTROY
               return;
             }
             break;
           }
         }
       } else {
-        int result = setAdd(set, swr);
-        if(result != SET_OK) {
-          printf("[DISC_STATS_ACCUMULATOR] Could not add fresh entry to set.\n");
-        }
+        setAdd(set, swr);
 
         MedalAccumulator *newAccumulators = (MedalAccumulator*) realloc(accumulators, sizeof(MedalAccumulator) * (accumulatorSize + 1));
         if(newAccumulators == NULL) {
-          printf("[DISC_STATS_ACCUMULATOR] Memory error ocurred.\n");
+          printf("[DISCIPLINE_STATISTICS] Memory error ocurred while realloc'ing medal accumulator array.\n");
+          // TODO DESTROY
           return;
         }
 
@@ -162,7 +165,8 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
 
         bool added = medalAccumulatorAddMedal(&(accumulators[accumulatorSize]), &currentMedal);
         if(!added) {
-          printf("[DISC_STATS_ACCUMULATOR] Something went wrong adding medal to fresh accumulator...\n");
+          printf("[DISCIPLINE_STATISTICS]  Error ocurred while adding medal to FRESH accumulator.\n");
+          // TODO DESTROY
           return;
         }
       }

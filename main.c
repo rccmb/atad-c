@@ -19,8 +19,7 @@
 #define COMMAND_LENGTH 32
 
 int main() {
-    // TODO Test setContains.
-
+    
     printf("Olympic Games Data Analysis\n");
     printf("---------------------------\n");
 
@@ -34,6 +33,13 @@ int main() {
     medals.size = 0;
 
     PtMap hosts = NULL;
+
+    // Testing START
+    athletes = loadAthletes();
+    loadMedals(&medals);
+    hosts = loadHosts();
+    showTopN(athletes, &medals, hosts, 10, 2000, 2020, "Winter");
+    // Testing END
 
     while(true) {
         char command[COMMAND_LENGTH];
@@ -139,18 +145,21 @@ int main() {
             bool missing = athletesIsNull(athletes) | medalsIsNull(&medals) | hostsIsNull(hosts);
             if(missing) continue;
 
-            checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
-
             int n;
             printf("Number of Athletes: ");
             readInteger(&n);
+            while(n < 0) {
+                printf("Number of Athletes must not be smaller than or equal to 0.\n");
+                printf("Number of Athletes: ");
+                readInteger(&n);
+            }
 
             int start, end;
             printf("Start Year: ");
             readInteger(&start);
             printf("End Year: ");
             readInteger(&end);
-            if(end < start) {
+            while(end < start) {
                 printf("End Year must not be smaller than the start Year!\n");
                 printf("End Year: ");
                 readInteger(&end);
@@ -165,7 +174,7 @@ int main() {
                 readString(season, MAX_GAME_SEASON_LENGTH);
             }
             
-            showTopN(alphabeticAthletes, &medals, hosts, n, start, end, season);
+            showTopN(athletes, &medals, hosts, n, start, end, season);
         }
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");

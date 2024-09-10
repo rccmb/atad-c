@@ -11,6 +11,7 @@
  * 
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -36,20 +37,4 @@ void athletePrint(PtAthlete ath) {
   printf("\tFirst Year Participation: %d\n", ath->yearFirstParticipation);
   printf("\tBirth Year: %d\n", ath->athleteBirth);
   printf("}\n");
-}
-
-AthleteMedals athleteMedalsCreate(char *athleteID) {
-  AthleteMedals am;
-  strcpy(am.athleteID, athleteID);
-  am.medalCount = 0;
-  am.countries = (Country*) malloc(sizeof(Country));
-  am.countriesSize = 0;
-  return am;
-}
-
-Country athleteCountryCreate(char *country, int year) {
-  Country c;
-  strcpy(c.country, country);
-  c.year = year;
-  return c;
 }

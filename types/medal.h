@@ -15,7 +15,7 @@
 #define MAX_EVENT_LENGTH 100
 #define MAX_ID_A_LENGTH 50
 #define MAX_COUNTRY_LENGTH 50
-#define MAX_GENDER 20
+#define MAX_GENDER 20 
 
 typedef struct medal {
   char discipline[MAX_DISC_LENGTH]; // Modalidade.
@@ -36,23 +36,6 @@ typedef struct medalList {
 } MedalList;
 
 typedef struct medalList *PtMedalList;
-
-typedef struct countryMedal {
-  char country[MAX_COUNTRY_LENGTH]; // Country name.
-  int medalCount; // Medal count of this country.
-} CountryMedal;
-
-typedef struct countryMedal *PtCountryMedal;
-
-typedef struct medalAccumulator {
-  char discipline[MAX_DISC_LENGTH]; // Discipline associated with this medal accumulator.
-  CountryMedal *countries; // Countries with medals in this discipline.
-  int countriesSize; // Size of the countries array.
-  int women; // Number of women with medals. (Mixed do not count).
-  int totalParticipants; // Number of total participants.
-} MedalAccumulator;
-
-typedef struct medalAccumulator *PtMedalAccumulator;
 
 /**
  * @brief Adds a medal to the medal list.
@@ -85,18 +68,3 @@ void medalPrint(PtMedal medal);
  * @param medal Pointer to a medal.
  */
 void medalType(PtMedal medal, char *type);
-
-/**
- * @brief Creates a medal accumulator. Auxiliary structure for DISCIPLINE_STATISTICS.
- * 
- * @param discipline [in] The name of the discipline associated with this accumulator.
- *
- * @return A new MedalAccumulator.
- */
-MedalAccumulator medalAccumulatorCreate(char *discipline);
-
-// TODO
-bool medalAccumulatorAddMedal(PtMedalAccumulator accum, PtMedal medal);
-
-// TODO
-void accumulatorPrint(PtMedalAccumulator accum);
