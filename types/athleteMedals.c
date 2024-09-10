@@ -24,14 +24,14 @@ AthleteMedals athleteMedalsCreate(char *athleteID) {
   AthleteMedals am;
   strcpy(am.athleteID, athleteID);
   am.medalCount = 0;
-  am.countries = (Country*) malloc(sizeof(Country));
+  am.countries = (Country*) calloc(0, sizeof(Country));
   am.countriesSize = 0;
-  am.editions = (Edition*) malloc(sizeof(Edition));
+  am.editions = (Edition*) calloc(0, sizeof(Edition));
   am.editionsSize = 0;
   return am;
 }
 
-bool athleteMedalsAddMedal(AthleteMedals *am, PtMedal medal) {
+bool athleteMedalsAddMedal(PtAthleteMedals am, PtMedal medal) {
   if(am == NULL || medal == NULL) return false;
 
   am->medalCount++;
@@ -48,8 +48,12 @@ bool athleteMedalsAddMedal(AthleteMedals *am, PtMedal medal) {
   }
 
   if(!found) {
-    am->countries = (Country*) realloc(am->countries, sizeof(Country) * (am->countriesSize + 1));
-    if(am->countries == NULL) return false;
+    Country *newCountries = (Country*) realloc(am->countries, sizeof(Country) * (am->countriesSize + 1));
+    if(newCountries == NULL) {
+      free(am->countries);
+      return false;
+    }
+    am->countries = newCountries;
     am->countries[am->countriesSize++] = athleteMedalsCreateCountry(medal->game, medal->country);
   }
 
@@ -62,8 +66,12 @@ bool athleteMedalsAddMedal(AthleteMedals *am, PtMedal medal) {
   }
 
   if(!found) {
-    am->editions = (Edition*) realloc(am->editions, sizeof(Edition) * (am->editionsSize + 1));
-    if(am->editions == NULL) return false;
+    Edition* newEditions = (Edition*) realloc(am->editions, sizeof(Edition) * (am->editionsSize + 1));
+    if(newEditions == NULL) { 
+      free(am->editions);
+      return false;
+    }
+    am->editions = newEditions;
     am->editions[am->editionsSize++] = athleteMedalsCreateEdition(medal->game);
   }
 

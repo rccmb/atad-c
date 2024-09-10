@@ -11,7 +11,10 @@
  */
 
 #include "../adts/list.h"
+#include "../utilities/helper.h"
 #include "../utilities/input.h"
+#include "../types/athleteMedals.h"
+#include "../types/host.h"
 #include <stdio.h>
 
 #include "ui.h"
@@ -88,4 +91,45 @@ void paginate(PtList athletes) {
     }
     else printf("Command not found. Type 1 to show the next page or 2 to exit pagination.\n");
   }
+}
+
+void uiShowHost(Host h) {
+  char city[MAX_GAME_NAME_LENGTH];
+  extractCity(h.gameName, city);
+
+  int dayCount = calculateDayDifference(h.gameStartDate, h.gameEndDate);
+
+  printf("%-30s %-30s %-5s %-9s\n", "COUNTRY", "CITY", "YEAR", "DAY COUNT");
+  printf("%-30s %-30s %-5d %-9d\n", h.gameLocation, city, h.gameYear, dayCount);
+}
+
+void uiTopN(AthleteMedals* athleteMedals, int size, int totalDayCount, int n) {
+  int iterationCount = size;
+  if(iterationCount > n) iterationCount = n;
+  printf("%-35s | %-35s | %-12s | %-22s | %-25s\n", "ATHLETE ID", "COUNTRY", "TOTAL MEDALS", "AVG. MEDALS BY EDITION", "AVG. MEDALS BY DAY");
+  printf("%-35s | %-35s | %-12s | %-22s | %-25s\n", "----------", "-------", "------------", "----------------------", "------------------");
+  for(int i = 0; i < iterationCount; i++) {
+    int firstCountryIndex = -1, firstCountryYear = 3000;
+    for(int j = 0; j < athleteMedals[i].countriesSize; j++) {
+      if(athleteMedals[i].countries[j].year < firstCountryYear) {
+        firstCountryYear = athleteMedals[i].countries[j].year;
+        firstCountryIndex = j;
+      }
+    }
+    double avgMedalEdition = 0;
+    for(int j = 0; j < athleteMedals[i].editionsSize; j++) {
+      avgMedalEdition += (double) athleteMedals[i].editions[j].medalCount / athleteMedals[i].editionsSize;
+    }
+    printf("%-35s | ", athleteMedals[i].athleteID);
+    printf("%-29s", athleteMedals[i].countries[firstCountryIndex].country);
+    athleteMedals[i].countriesSize == 1 
+      ? printf("       | ")
+      : printf(" %s(%02d) | ", "*", athleteMedals[i].countriesSize - 1);
+    printf("%-12d | %-22.2f | %-20.2f\n",
+      athleteMedals[i].medalCount,
+      (double) avgMedalEdition, 
+      (double) athleteMedals[i].medalCount / totalDayCount
+    );
+  }
+  printf("* This athlete changed countries during this period.\n");
 }

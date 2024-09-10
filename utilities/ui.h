@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "../types/athleteMedals.h"
+
 #define LINE_LENGTH 150
 
 /**
@@ -23,3 +25,9 @@ void printMenu();
  * @param athletes [in] The list of athletes to print.
  */
 void paginate(PtList athletes);
+
+// TODO DOCS
+void uiShowHost(Host h);
+
+// TODO DOCS
+void uiTopN(AthleteMedals* athleteMedals, int size, int totalDayCount, int n);

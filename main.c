@@ -38,7 +38,7 @@ int main() {
     athletes = loadAthletes();
     loadMedals(&medals);
     hosts = loadHosts();
-    showTopN(athletes, &medals, hosts, 10, 2000, 2020, "Winter");
+    showTopN(athletes, &medals, hosts, 10, 2000, 2022, "Winter");
     // Testing END
 
     while(true) {

@@ -105,13 +105,7 @@ void showHost(PtMap hosts, char *gameSlug) {
     Host h;
     mapGet(hosts, swr, &h);
 
-    char city[MAX_GAME_NAME_LENGTH];
-    extractCity(h.gameName, city);
-
-    int dayCount = calculateDayDifference(h.gameStartDate, h.gameEndDate);
-
-    printf("%-30s %-30s %-5s %-9s\n", "COUNTRY", "CITY", "YEAR", "DAY COUNT");
-    printf("%-30s %-30s %-5d %-9d\n", h.gameLocation, city, h.gameYear, dayCount);
+    uiShowHost(h);
   } else printf("No edition found!\n");
 }
 
@@ -125,7 +119,7 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
     return;
   }
 
-  MedalAccumulator *accumulators = (MedalAccumulator*) malloc(sizeof(MedalAccumulator));
+  MedalAccumulator *accumulators = (MedalAccumulator*) calloc(0, sizeof(MedalAccumulator));
 
   for(int i = 0; i < medals->size; i++) {
     Medal currentMedal = medals->elements[i];
@@ -204,8 +198,8 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
 
     printf("%5d. %53s ", i + 1, currentMA.discipline);
     tied == 0 
-      ? printf("%60s ", country)
-      : printf("%56s %s(%d)", country, "*", tied);
+      ? printf("%60s", country)
+      : printf("%54s %s(%02d)", country, "*", tied);
     printf("%10d %17.2f", max, (double) currentMA.women / currentMA.totalParticipants);
     printf("\n");
 

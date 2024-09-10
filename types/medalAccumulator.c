@@ -19,7 +19,7 @@ static CountryMedal countryMedalCreate(char *country);
 MedalAccumulator medalAccumulatorCreate(char *discipline) {
   MedalAccumulator ma;
   strcpy(ma.discipline, discipline);
-  ma.countries = (CountryMedal*) malloc(sizeof(CountryMedal));
+  ma.countries = (CountryMedal*) calloc(0, sizeof(CountryMedal));
   ma.countriesSize = 0;
   ma.women = 0;
   ma.totalParticipants = 0;

@@ -12,6 +12,9 @@
 
 #pragma once
 
+#define ATHLETE_MEDALS_OK 0
+#define ATHLETE_MEDALS_NULL 1 
+
 #include <stdbool.h>
 #include "athlete.h"
 #include "medal.h"
@@ -45,4 +48,4 @@ typedef struct athleteMedals *PtAthleteMedals;
 AthleteMedals athleteMedalsCreate(char *athleteID);
 
 // TODO DOCS
-bool athleteMedalsAddMedal(AthleteMedals *am, PtMedal medal); 
+bool athleteMedalsAddMedal(PtAthleteMedals am, PtMedal medal); 
