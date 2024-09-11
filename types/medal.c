@@ -54,6 +54,13 @@ void medalType(PtMedal medal, char *type) {
   if(medal->medalType == 'B') strcpy(type, "Bronze");
 }
 
+char medalGender(PtMedal medal) {
+  if(strcmp(medal->gender, "Men") == 0) return 'M';
+  if(strcmp(medal->gender, "Women") == 0) return 'W';
+  if(strcmp(medal->gender, "Mixed") == 0) return 'X';
+  return ' ';
+}
+
 static char characterMap(char *type) {
   if(strcmp(type, "GOLD") == 0) return 'G';
   if(strcmp(type, "SILVER") == 0) return 'S';

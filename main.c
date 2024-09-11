@@ -38,7 +38,7 @@ int main() {
     athletes = loadAthletes();
     loadMedals(&medals);
     hosts = loadHosts();
-    showTopN(athletes, &medals, hosts, 10, 2000, 2022, "Winter");
+    medalsWon(&medals, hosts, "United States of America", "Winter", 1924);
     // Testing END
 
     while(true) {
@@ -175,6 +175,30 @@ int main() {
             }
             
             showTopN(athletes, &medals, hosts, n, start, end, season);
+        }
+
+        else if(strcmpins(command, "MEDALS_WON") == 0) {
+            bool missing = medalsIsNull(&medals) | hostsIsNull(hosts);
+            if(missing) continue;
+
+            char country[MAX_COUNTRY_LENGTH];
+            printf("Country: ");
+            readString(country, MAX_COUNTRY_LENGTH);
+
+            char season[MAX_GAME_SEASON_LENGTH];
+            printf("Season (Winter, Summer): ");
+            readString(season, MAX_GAME_SEASON_LENGTH);
+            while(strcmpins(season, "Winter") != 0 && strcmpins(season, "Summer") != 0) {
+                printf("Season must be either \"Winter\" or \"Summer\"!\n");
+                printf("Season (Winter, Summer): ");
+                readString(season, MAX_GAME_SEASON_LENGTH);
+            }
+
+            int year;
+            printf("Year: ");
+            readInteger(&year);
+
+            medalsWon(&medals, hosts, country, season, year);
         }
 
         else printf("Invalid command inserted. Use HELP to view all available commands.\n");

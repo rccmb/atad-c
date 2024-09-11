@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include "../types/stringWrap.h"
 
-/* Change according to use-case. */
+/** Key type definition. Change according to the use-case. */
 typedef StringWrap SetElem;
 
 /**

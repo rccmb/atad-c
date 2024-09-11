@@ -81,11 +81,41 @@ void extractCity(char *cityyear, char *city);
  */
 bool getAthlete(PtList athletes, char *athleteId, PtAthlete ath);
 
-// TODO
+/**
+ * @brief Check if the given athlete list is null.
+ * 
+ * @param athletes [in] Athlete list.
+ * 
+ * @return true if the given athlete list is null, or
+ * @return false if the given athlete list is not null.
+ */
 bool athletesIsNull(PtList athletes);
 
-// TODO
+/**
+ * @brief Check if the given medal list is null.
+ * 
+ * @param medals [in] Medal list.
+ * 
+ * @return true if the given medal list is null, or
+ * @return false if the given medal list is not null.
+ */
 bool medalsIsNull(PtMedalList medals);
 
-// TODO
+/**
+ * @brief Check if the given hosts map is null.
+ * 
+ * @param hosts [in] Hosts map.
+ * 
+ * @return true if the given hosts map is null, or
+ * @return false if the given hosts map is not null.
+ */
 bool hostsIsNull(PtMap hosts);
+
+/**
+ * @brief Gets the year from a game edition.
+ * 
+ * @param slug [in] Name of the game edition.
+ * 
+ * @return Integer with the year.
+ */
+int getYearFromSlug(char *slug);

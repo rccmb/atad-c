@@ -20,6 +20,7 @@ typedef struct countryMedal {
   int medalCount; // Medal count of this country.
 } CountryMedal;
 
+/** Definition of pointer to the  data stucture. */
 typedef struct countryMedal *PtCountryMedal;
 
 typedef struct medalAccumulator {
@@ -30,7 +31,7 @@ typedef struct medalAccumulator {
   int totalParticipants; // Number of total participants.
 } MedalAccumulator;
 
-// TODO DOCS
+/** Definition of pointer to the  data stucture. */
 typedef struct medalAccumulator *PtMedalAccumulator;
 
 /**
@@ -42,8 +43,20 @@ typedef struct medalAccumulator *PtMedalAccumulator;
  */
 MedalAccumulator medalAccumulatorCreate(char *discipline);
 
-// TODO DOCS
+/**
+ * @brief Adds a medal to the medal accumulator.
+ * 
+ * @param accum [in] Pointer to the accumulator that will receive the medal.
+ * @param medal [in] Pointer to the medal that will be added.
+ *
+ * @return true if the addition was successful.
+ * @return false if the addition was unsuccessful.
+ */
 bool medalAccumulatorAddMedal(PtMedalAccumulator accum, PtMedal medal);
 
-// TODO DOCS
+/**
+ * @brief Prints a medal accumulators information.
+ * 
+ * @param accum [in] Pointer to the accumulator to be printed.
+ */
 void accumulatorPrint(PtMedalAccumulator accum);

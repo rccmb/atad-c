@@ -14,8 +14,11 @@
 #include "../utilities/helper.h"
 #include "../utilities/input.h"
 #include "../types/athleteMedals.h"
+#include "../types/medalsWon.h"
 #include "../types/host.h"
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "ui.h"
 
@@ -75,10 +78,16 @@ void paginate(PtList athletes) {
     printf("PAGINATION COMMANDS\n");
     printf("1. Next %d\n", PAGE_LENGTH);
     printf("2. Return\n");
-
+    
     printf("Pagination Command > ");
     int userChoice;
     readInteger(&userChoice);
+
+    while(userChoice != 1 && userChoice != 2) {
+      printf("Command not found. Type 1 to show the next page or 2 to exit pagination.\n");
+      printf("Pagination Command > ");
+      readInteger(&userChoice);
+    }
 
     if(userChoice == 1) {
       current = limit;
@@ -89,8 +98,48 @@ void paginate(PtList athletes) {
       printf("Exited pagination.\n");
       return;
     }
-    else printf("Command not found. Type 1 to show the next page or 2 to exit pagination.\n");
   }
+}
+
+void uiDisciplineStatistics(PtMedalAccumulator accumulators, int size, char *gameSlug) {
+  printf("Discipline statistics for %s.\n", gameSlug);
+  printf("-> There were %d different disciplines.\n", size);
+
+  printf("%60s %60s %10s %17s\n", "DISCIPLINE", "TOP COUNTRY", "MEDALS", "WOMEN RATIO");
+  for(int i = 0; i < LINE_LENGTH; i++) {
+    printf("-");
+  }
+  printf("\n");
+
+  for(int i = 0; i < size; i++) {
+    MedalAccumulator currentMA = accumulators[i];
+
+    char country[MAX_COUNTRY_LENGTH];
+    int max = 0;
+    int tied = 0;
+    for(int j = 0; j < currentMA.countriesSize; j++) {
+      if(currentMA.countries[j].medalCount == max) {
+        tied++;
+      }
+      if(currentMA.countries[j].medalCount > max) {
+        max = currentMA.countries[j].medalCount;
+        strcpy(country, currentMA.countries[j].country);
+        tied = 0;
+      }
+    }
+
+    printf("%5d. %53s ", i + 1, currentMA.discipline);
+    tied == 0 
+      ? printf("%60s", country)
+      : printf("%54s %s(%02d)", country, "*", tied);
+    printf("%10d %17.2f", max, (double) currentMA.women / currentMA.totalParticipants);
+    printf("\n");
+
+    free(accumulators[i].countries);
+  }
+
+  printf("*(tie count) represents the number of countries tied for first place.\n");
+  printf("The women ration is calculated with the specific amount of women. All other types go towards total participations.\n");
 }
 
 void uiShowHost(Host h) {
@@ -103,7 +152,29 @@ void uiShowHost(Host h) {
   printf("%-30s %-30s %-5d %-9d\n", h.gameLocation, city, h.gameYear, dayCount);
 }
 
-void uiTopN(AthleteMedals* athleteMedals, int size, int totalDayCount, int n) {
+void uiAthleteInfo(PtMedal entries, char *athleteId, char *athleteCountry, int entriesSize) {
+  int flag[entriesSize];
+  for(int i = 0; i < entriesSize; i++) flag[i] = 0;
+  printf("Athlete %s competed for %s and won %d medals!\n", athleteId, athleteCountry, entriesSize);
+  for(int i = 0; i < entriesSize; i++) {
+    if(flag[i] == 1) continue;
+    printf("Edition %s:\n", entries[i].game);
+    for(int j = i; j < entriesSize; j++) {
+      if(strcmp(entries[j].game, entries[i].game) == 0) {
+        flag[j] = 1;
+        char extType[64];
+        medalType(&(entries[j]), extType);
+        printf("\t-> Won %s in %s, event: %s.\n", 
+          extType, 
+          entries[j].discipline,
+          entries[j].eventTitle
+        );
+      }
+    }
+  }
+}
+
+void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n) {
   int iterationCount = size;
   if(iterationCount > n) iterationCount = n;
   printf("%-35s | %-35s | %-12s | %-22s | %-25s\n", "ATHLETE ID", "COUNTRY", "TOTAL MEDALS", "AVG. MEDALS BY EDITION", "AVG. MEDALS BY DAY");
@@ -132,4 +203,19 @@ void uiTopN(AthleteMedals* athleteMedals, int size, int totalDayCount, int n) {
     );
   }
   printf("* This athlete changed countries during this period.\n");
+}
+
+void uiMedalsWon(PtMedalsWon medalsWon, int size) {
+  for(int i = 0; i < size; i++) {
+    for(int j = 0; j < 3; j++) {
+      printf("%s, %d -> Category: %c, G: %d, S: %d, B: %d.\n", 
+        medalsWon[i].edition,
+        medalsWon[i].year,
+        medalsWon[i].categories[j].category,
+        medalsWon[i].categories[j].gold,
+        medalsWon[i].categories[j].silver,
+        medalsWon[i].categories[j].bronze
+      );
+    }
+  }
 }

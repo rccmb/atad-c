@@ -28,6 +28,7 @@ typedef struct medal {
   char country[MAX_COUNTRY_LENGTH]; // País pelo qual o atleta competiu.
 } Medal;
 
+/** Definition of pointer to the  data stucture. */
 typedef struct medal *PtMedal;
 
 typedef struct medalList {
@@ -35,6 +36,7 @@ typedef struct medalList {
   int size; // Current size of the medal list.
 } MedalList;
 
+/** Definition of pointer to the  data stucture. */
 typedef struct medalList *PtMedalList;
 
 /**
@@ -68,3 +70,6 @@ void medalPrint(PtMedal medal);
  * @param medal Pointer to a medal.
  */
 void medalType(PtMedal medal, char *type);
+
+// TODO
+char medalGender(PtMedal medal);

@@ -11,14 +11,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../utilities/helper.h"
 
 #include "athleteMedals.h"
 
 static Country athleteMedalsCreateCountry(char *game, char *country);
 
 static Edition athleteMedalsCreateEdition(char *game);
-
-static int getYearFromSlug(char *slug);
 
 AthleteMedals athleteMedalsCreate(char *athleteID) {
   AthleteMedals am;
@@ -90,13 +89,4 @@ static Edition athleteMedalsCreateEdition(char *game) {
   strcpy(ed.edition, game);
   ed.medalCount = 1;
   return ed;
-}
-
-static int getYearFromSlug(char *slug) {
-  char year[5]; 
-  int yearPos = strlen(slug) - 4;
-  strncpy(year, slug + yearPos, 4);
-  year[4] = '\0';
-  int y = atoi(year);
-  return y;
 }

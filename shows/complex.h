@@ -36,3 +36,14 @@ void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId);
  * @param season [in] The game season. Winter or summer.
  */
 void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start, int end, char *season);
+
+/**
+ * @brief Shows the medals won for a specific country in 5 successive editions.
+ * 
+ * @param medals [in] List of medals.
+ * @param host [in] Map of the hosts.
+ * @param country [in] Country to analyze.
+ * @param season [in] The game season. Winter or summer.
+ * @param year [in] The starting year of the 5 successive editions.
+ */
+void medalsWon(PtMedalList medals, PtMap hosts, char *country, char *season, int year);

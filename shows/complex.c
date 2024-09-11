@@ -23,8 +23,10 @@
 #include "../adts/list.h"
 
 #include "complex.h"
-
+ 
 static void bubbleSortAthleteMedals(AthleteMedals* array, int start, int end);
+
+static void bubbleSortMedalsWon(MedalsWon* array, int size);
 
 void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId) {
   if(athletes == NULL || medals->elements == NULL) return;
@@ -40,7 +42,6 @@ void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId) {
   Medal* entries = (Medal*) calloc(0, sizeof(Medal));
   if(entries == NULL) {
     printf("[ATHLETE_INFO] Something went wrong alloc'ing the medal entries.\n");
-    // TODO DESTROY
     return;
   }
   int entriesSize = 0;
@@ -50,47 +51,24 @@ void showAthleteInfo(PtList athletes, PtMedalList medals, char *athleteId) {
   for(int i = 0; i < medals->size; i++) {
     if(strcmp(medals->elements[i].athleteID, athleteId) == 0) {
       if(entriesSize == 0) strcpy(athleteCountry, medals->elements[i].country);
-      entries = (Medal*) realloc(entries, sizeof(Medal) * (entriesSize + 1));
-      if(entries == NULL) {
+      Medal* newEntries = (Medal*) realloc(entries, sizeof(Medal) * (entriesSize + 1));
+      if(newEntries == NULL) {
         printf("[ATHLETE_INFO] Something went wrong realloc'ing the medal entries.\n");
-        // TODO DESTROY
+        free(entries);
         return;
       }
+      entries = newEntries;
       entries[entriesSize++] = medals->elements[i];
     }
   }
-
-  int flag[entriesSize];
-  for(int i = 0; i < entriesSize; i++) flag[i] = 0;
 
   if(entriesSize == 0) {
     printf("Athlete %s did not win any medals!\n", athleteId);
     free(entries);
     return;
   }
-
-  printf("Athlete %s competed for %s and won %d medals!\n", athleteId, athleteCountry, entriesSize);
-
-  for(int i = 0; i < entriesSize; i++) {
-    if(flag[i] == 1) continue;
-
-    printf("Edition %s:\n", entries[i].game);
-
-    for(int j = i; j < entriesSize; j++) {
-      if(strcmp(entries[j].game, entries[i].game) == 0) {
-        flag[j] = 1;
-
-        char extType[64];
-        medalType(&(entries[j]), extType);
-
-        printf("\t-> Won %s in %s, event: %s.\n", 
-          extType, 
-          entries[j].discipline,
-          entries[j].eventTitle
-        );
-      }
-    }
-  }
+  
+  uiAthleteInfo(entries, athleteId, athleteCountry, entriesSize);
 
   free(entries);
 }
@@ -245,6 +223,136 @@ void showTopN(PtList athletes, PtMedalList medals, PtMap hosts, int n, int start
   setDestroy(&validHosts);
   free(validHostsValues);
   free(hostsValues);
+}
+
+void medalsWon(PtMedalList medals, PtMap hosts, char *country, char *season, int year) {
+  if(medals->elements == NULL || hosts == NULL) return;
+
+  int terminationFlag = 0;
+
+  PtSet foundEditions = setCreate();
+  if(foundEditions == NULL) {
+    printf("[MEDALS_WON] Could not create set to store found editions.\n");
+    return;
+  }
+
+  MedalsWon* medalsWon = (MedalsWon*) calloc(0, sizeof(MedalsWon));
+  int medalsWonSize = 0;
+  if(medalsWon == NULL) {
+    printf("[MEDALS_WON] Could not create array to store medals won.\n");
+    setDestroy(&foundEditions);
+    return;
+  }
+
+  /* Populating valid hosts. */
+  int hostsSize = 0;
+  mapSize(hosts, &hostsSize);
+  Host* hostsValues = mapValues(hosts);
+  PtSet validHosts = setCreate();
+  if(hostsValues == NULL || validHosts == NULL) {
+    printf("[MEDALS_WON] Something went wrong getting hosts values or creating the set for hosts values.\n");
+    setDestroy(&validHosts);
+    setDestroy(&foundEditions);
+    free(medalsWon);
+    free(hostsValues);
+    return;
+  }
+
+  for(int i = 0; i < hostsSize; i++) {
+    if(strcmp(hostsValues[i].gameSeason, season) == 0) {
+      StringWrap swrGameSlug = stringWrapCreate(hostsValues[i].gameSlug);
+      setAdd(validHosts, swrGameSlug);
+    }
+  }
+
+  /* Populating all valid medals. */
+  bool countryExists = false;
+  for(int i = 0; i < medals->size; i++) {
+    StringWrap swrGameSlug = stringWrapCreate(medals->elements[i].game);
+    if(strcmp(medals->elements[i].country, country) == 0) {
+      countryExists = true;
+      if(
+        setContains(validHosts, swrGameSlug)
+        && getYearFromSlug(medals->elements[i].game) >= year
+      ) {
+        StringWrap swrEdition = stringWrapCreate(medals->elements[i].game);
+        if(setContains(foundEditions, swrEdition)) {
+          for(int j = 0; j < medalsWonSize; j++) {
+            if(strcmp(medals->elements[i].game, medalsWon[j].edition) == 0) {
+              bool added = medalsWonAddMedal(&(medalsWon[j]), &(medals->elements[i]));
+              if(!added) {
+                printf("[MEDALS_WON] Something went wrong adding medal to EXISTING medals won.\n");
+                terminationFlag = 1;
+                break;
+              }
+              break;
+            }
+          }
+          if(terminationFlag == 1) break;
+        } else {
+          setAdd(foundEditions, swrEdition);
+          MedalsWon* newMedalsWon = (MedalsWon*) realloc(medalsWon, sizeof(MedalsWon) * (medalsWonSize + 1));
+          if(newMedalsWon == NULL) {
+            printf("[MEDALS_WON] Could not realloc the array to store medals won.\n");
+            terminationFlag = 1;
+            break;
+          }
+          medalsWon = newMedalsWon;
+          medalsWon[medalsWonSize] = medalsWonCreate(medals->elements[i].game, getYearFromSlug(medals->elements[i].game));
+          bool added = medalsWonAddMedal(&(medalsWon[medalsWonSize]), &(medals->elements[i]));
+          if(!added) {
+            printf("[MEDALS_WON] Something went wrong adding medal to FRESH medals won.\n");
+            terminationFlag = 1;
+            break;
+          }
+          medalsWonSize++;
+        }
+      }
+    }
+  }
+
+  if(countryExists == false) {
+    printf("Error! The specified country does not exist.\n");
+    terminationFlag = 1;
+  }
+
+  if(medalsWonSize == 0) {
+    printf("Error! There are no entries for the specified time period/season.\n");
+    terminationFlag = 1;
+  }
+
+  if(terminationFlag != 1) {
+    bubbleSortMedalsWon(medalsWon, medalsWonSize);
+  }
+
+  int sizePrint = medalsWonSize;
+  if(sizePrint > 5) sizePrint = 5;
+  if(terminationFlag != 1) {
+    uiMedalsWon(medalsWon, sizePrint);
+  }
+
+  for(int i = 0; i < medalsWonSize; i++) {
+    free(medalsWon[i].categories);
+  }
+  setDestroy(&validHosts);
+  setDestroy(&foundEditions); 
+  free(medalsWon);
+  free(hostsValues);
+}
+
+static void bubbleSortMedalsWon(MedalsWon* array, int size) {
+  for(int i = 0; i < size - 1; i++) {
+    bool swapped = false;
+    for(int j = 0; j < size - i - 1; j++) {
+      if(array[j].year > array[j + 1].year) {
+        MedalsWon temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+        swapped = true;
+      }
+    }
+    if(!swapped) break;
+  }
 }
 
 static void bubbleSortAthleteMedals(AthleteMedals* array, int start, int end) {

@@ -128,6 +128,15 @@ bool hostsIsNull(PtMap hosts) {
   return false;
 }
 
+int getYearFromSlug(char *slug) {
+  char year[5]; 
+  int yearPos = strlen(slug) - 4;
+  strncpy(year, slug + yearPos, 4);
+  year[4] = '\0';
+  int y = atoi(year);
+  return y;
+}
+
 static int partitionAthletes(PtList athletes, int low, int high) {
   Athlete pivot;
   listGet(athletes, high, &pivot);

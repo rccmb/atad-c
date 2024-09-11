@@ -38,7 +38,6 @@ void showParticipations(PtList athletes, int participationCount) {
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
     printf("[SHOW_PARTICIPATIONS] Memory error ocurred while creating filtered list.\n");
-    // TODO DESTROY
     return;
   }
 
@@ -50,12 +49,18 @@ void showParticipations(PtList athletes, int participationCount) {
     Athlete athlete;
     listGet(athletes, i, &athlete);
     if(athlete.gamesParticipations >= participationCount) {
-      listAdd(filteredList, filteredSize++, athlete);
+      int result = listAdd(filteredList, filteredSize++, athlete);
+      if(result != 0) {
+        printf("[SHOW_PARTICIPATIONS] Error ocurred while creating filtered list: %d.\n", result);
+        listDestroy(&filteredList);
+        return;
+      }
     }
   }
 
   if(filteredSize <= 0) {
     printf("No Athletes found with atleast %d participations.\n", participationCount);
+    listDestroy(&filteredList);
     return;
   }
 
@@ -70,7 +75,6 @@ void showFirst(PtList athletes, int firstYear) {
   PtList filteredList = listCreate();
   if(filteredList == NULL) {
     printf("[SHOW_FIRST] Memory error ocurred while creating filtered list.\n");
-    // TODO DESTROY
     return;
   }
 
@@ -82,12 +86,18 @@ void showFirst(PtList athletes, int firstYear) {
     Athlete athlete;
     listGet(athletes, i, &athlete);
     if(athlete.yearFirstParticipation == firstYear) {
-      listAdd(filteredList, filteredSize++, athlete);
+      int result = listAdd(filteredList, filteredSize++, athlete);
+      if(result != 0) {
+        printf("[SHOW_FIRST] Error ocurred while creating filtered list: %d.\n", result);
+        listDestroy(&filteredList);
+        return;
+      }
     }
   }
 
   if(filteredSize <= 0) {
     printf("No Athletes found whose first participation was at %d .\n", firstYear);
+    listDestroy(&filteredList);
     return;
   }
 
@@ -112,10 +122,11 @@ void showHost(PtMap hosts, char *gameSlug) {
 void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
   if(medals->elements == NULL) return;
 
+  int terminationFlag = 0;
+
   PtSet set = setCreate();
   if(set == NULL) {
     printf("[DISCIPLINE_STATISTICS] Memory error ocurred while creating set.\n");
-    // TODO DESTROY
     return;
   }
 
@@ -123,91 +134,49 @@ void showDisciplineStatistics(PtMedalList medals, char *gameSlug) {
 
   for(int i = 0; i < medals->size; i++) {
     Medal currentMedal = medals->elements[i];
-
     if(strcmp(currentMedal.game, gameSlug) == 0) {
       int accumulatorSize = 0;
       setSize(set, &accumulatorSize);
-
       StringWrap swr = stringWrapCreate(currentMedal.discipline);
-      
       if(setContains(set, swr)) {
         for(int i = 0; i < accumulatorSize; i++) {
           if(strcmp(accumulators[i].discipline, currentMedal.discipline) == 0) {
             bool added = medalAccumulatorAddMedal(&(accumulators[i]), &currentMedal);
             if(!added) {
               printf("[DISCIPLINE_STATISTICS] Error ocurred while adding medal to EXISTING accumulator.\n");
-              // TODO DESTROY
-              return;
+              terminationFlag = 1;
             }
             break;
           }
         }
+        if(terminationFlag == 1) break;
       } else {
         setAdd(set, swr);
-
         MedalAccumulator *newAccumulators = (MedalAccumulator*) realloc(accumulators, sizeof(MedalAccumulator) * (accumulatorSize + 1));
         if(newAccumulators == NULL) {
           printf("[DISCIPLINE_STATISTICS] Memory error ocurred while realloc'ing medal accumulator array.\n");
-          // TODO DESTROY
-          return;
+          terminationFlag = 1;
+          break;
         }
-
         MedalAccumulator accum = medalAccumulatorCreate(currentMedal.discipline);
-        
         accumulators = newAccumulators;
         accumulators[accumulatorSize] = accum;
-
         bool added = medalAccumulatorAddMedal(&(accumulators[accumulatorSize]), &currentMedal);
         if(!added) {
           printf("[DISCIPLINE_STATISTICS]  Error ocurred while adding medal to FRESH accumulator.\n");
-          // TODO DESTROY
-          return;
+          terminationFlag = 1;
+          break;
         }
       }
     }
   }
 
-  int size = 0;
-  setSize(set, &size);
+  if(terminationFlag != 1) {
+    int size = 0;
+    setSize(set, &size);
 
-  printf("Discipline statistics for %s.\n", gameSlug);
-  printf("-> There were %d different disciplines.\n", size);
-
-  printf("%60s %60s %10s %17s\n", "DISCIPLINE", "TOP COUNTRY", "MEDALS", "WOMEN RATIO");
-  for(int i = 0; i < LINE_LENGTH; i++) {
-    printf("-");
+    uiDisciplineStatistics(accumulators, size, gameSlug);
   }
-  printf("\n");
-
-  for(int i = 0; i < size; i++) {
-    MedalAccumulator currentMA = accumulators[i];
-
-    char country[MAX_COUNTRY_LENGTH];
-    int max = 0;
-    int tied = 0;
-    for(int j = 0; j < currentMA.countriesSize; j++) {
-      if(currentMA.countries[j].medalCount == max) {
-        tied++;
-      }
-      if(currentMA.countries[j].medalCount > max) {
-        max = currentMA.countries[j].medalCount;
-        strcpy(country, currentMA.countries[j].country);
-        tied = 0;
-      }
-    }
-
-    printf("%5d. %53s ", i + 1, currentMA.discipline);
-    tied == 0 
-      ? printf("%60s", country)
-      : printf("%54s %s(%02d)", country, "*", tied);
-    printf("%10d %17.2f", max, (double) currentMA.women / currentMA.totalParticipants);
-    printf("\n");
-
-    free(accumulators[i].countries);
-  }
-
-  printf("*(tie count) represents the number of countries tied for first place.\n");
-  printf("The women ration is calculated with the specific amount of women. All other types go towards total participations.\n");
 
   free(accumulators);
   setDestroy(&set);

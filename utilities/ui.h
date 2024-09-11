@@ -11,6 +11,8 @@
 #pragma once
 
 #include "../types/athleteMedals.h"
+#include "../types/medalsWon.h"
+#include "../types/medalAccumulator.h"
 
 #define LINE_LENGTH 150
 
@@ -26,8 +28,41 @@ void printMenu();
  */
 void paginate(PtList athletes);
 
-// TODO DOCS
+/**
+ * @brief Prints the discipline statistics. Used for DISCIPLINE_STATISTICS.
+ * 
+ * @param accumulators [in] Accumulators to print.
+ * @param size [in] Size of the accumulators.
+ * @param gameSlug [in] Game slug.
+ */
+void uiDisciplineStatistics(PtMedalAccumulator accumulators, int size, char *gameSlug);
+
+/**
+ * @brief Prints the given host information. Used for SHOW_HOST.
+ * 
+ * @param h [in] The host to print.
+ */
 void uiShowHost(Host h);
 
-// TODO DOCS
-void uiTopN(AthleteMedals* athleteMedals, int size, int totalDayCount, int n);
+/**
+ * @brief Prints the given athlete medals information. Used for ATHLETE_INFO.
+ * 
+ * @param entries [in] The medals the athlete has won.
+ * @param athleteId [in] The athletes id.
+ * @param athleteCountry [in] The athletes country.
+ * @param entriesSize [in] Size of the medals array.
+ */
+void uiAthleteInfo(PtMedal entries, char *athleteId, char *athleteCountry, int entriesSize);
+
+/**
+ * @brief Prints the top N athletes. Used for TOPN.
+ * 
+ * @param athleteMedals [in] The array of athletes to print.
+ * @param size [in] Size of athleteMedals.
+ * @param totalDayCount [in] Number to be used when calculating the athletes average medals per day.
+ * @param n [in] Maximum number of athletes to print.
+ */
+void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n);
+
+// TODO
+void uiMedalsWon(PtMedalsWon medalsWon, int size);

@@ -19,19 +19,19 @@
 #include "athlete.h"
 #include "medal.h"
 
-// TODO DOCS
+// Support type to be used in athlete medals.
 typedef struct country {
-  char country[MAX_COUNTRY_LENGTH];
-  int year;
+  char country[MAX_COUNTRY_LENGTH]; // Name of the country.
+  int year; // First year the athlete in athlete medals participated for this country.
 } Country;
 
-// TODO DOCS
+// Support type to be used in athlete medals.
 typedef struct edition {
-  char edition[MAX_GAME_LENGTH];
-  int medalCount;
+  char edition[MAX_GAME_LENGTH]; // Name of the edition.
+  int medalCount; // Number of medals the athlete in athlete medals won for this edition.
 } Edition;
 
-// TODO DOCS
+// Auxiliary structure to be used in TOPN.
 typedef struct athleteMedals {
   char athleteID[MAX_ID_LENGTH]; // Athlete ID.
   int medalCount; // The amount of medals this athlete won.
@@ -44,8 +44,22 @@ typedef struct athleteMedals {
 /** Definition of pointer to the data stucture. */
 typedef struct athleteMedals *PtAthleteMedals;
 
-// TODO DOCS
+/**
+ * @brief Creates a athlete medals. Auxiliary structure for TOPN.
+ * 
+ * @param discipline [in] The name of the athlete associated with this athlete medals.
+ *
+ * @return A new AthleteMedals.
+ */
 AthleteMedals athleteMedalsCreate(char *athleteID);
 
-// TODO DOCS
+/**
+ * @brief Creates a athlete medals. Auxiliary structure for TOPN.
+ * 
+ * @param am [in] Pointer to the athlete medals that will receive the medal.
+ * @param medal [in] Pointer to the medal that will be added.
+ *
+ * @return true if the medal was added successfully.
+ * @return false if the medal was not added successfully.
+ */
 bool athleteMedalsAddMedal(PtAthleteMedals am, PtMedal medal); 
