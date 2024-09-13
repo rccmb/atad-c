@@ -64,5 +64,10 @@ void uiAthleteInfo(PtMedal entries, char *athleteId, char *athleteCountry, int e
  */
 void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n);
 
-// TODO
+/**
+ * @brief Prints the medals won by a country in 5 successive editions. Used for MEDALS_WON.
+ * 
+ * @param medalsWon [in] The array of medals won to print.
+ * @param size [in] Size of medalsWon.
+ */
 void uiMedalsWon(PtMedalsWon medalsWon, int size);

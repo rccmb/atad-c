@@ -65,11 +65,17 @@ void medalPrint(PtMedal medal);
 /**
  * @brief Receives a medal and returns it's type in extended form. 
  *
- * A medal whose type is 'G', will return "Gold".
+ * A medal whose type is 'G', will return "Gold", etc.
  * 
  * @param medal Pointer to a medal.
  */
 void medalType(PtMedal medal, char *type);
 
-// TODO
+/**
+ * @brief Receives a medal and returns it's gender in short form. 
+ *
+ * A medal whose gender is 'Women', will return "W", etc.
+ * 
+ * @param medal Pointer to a medal.
+ */
 char medalGender(PtMedal medal);
