@@ -69,5 +69,6 @@ void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n);
  * 
  * @param medalsWon [in] The array of medals won to print.
  * @param size [in] Size of medalsWon.
+ * @param hosts [in] Map of game hosts.
  */
-void uiMedalsWon(PtMedalsWon medalsWon, int size);
+void uiMedalsWon(PtMedalsWon medalsWon, int size, PtMap hosts);

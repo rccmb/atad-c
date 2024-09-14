@@ -205,11 +205,16 @@ void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n) {
   printf("* This athlete changed countries during this period.\n");
 }
 
-void uiMedalsWon(PtMedalsWon medalsWon, int size) {
+void uiMedalsWon(PtMedalsWon medalsWon, int size, PtMap hosts) {
+  printf("%-30s | %-4s | %-8s | %-3s | %-3s | %-3s\n", "EDITION", "YEAR", "CATEGORY", "G", "S", "B");
+  printf("%-30s | %-4s | %-8s | %-3s | %-3s | %-3s\n", "------------------------------", "----", "--------", "---", "---", "---");
   for(int i = 0; i < size; i++) {
+    Host currentHost;
+    StringWrap swr = stringWrapCreate(medalsWon[i].edition);
+    mapGet(hosts, swr, &currentHost);
     for(int j = 0; j < 3; j++) {
-      printf("%s, %d -> Category: %c, G: %d, S: %d, B: %d.\n", 
-        medalsWon[i].edition,
+      printf("%-30s | %-4d | %-8c | %-3d | %-3d | %-3d\n", 
+        currentHost.gameName,
         medalsWon[i].year,
         medalsWon[i].categories[j].category,
         medalsWon[i].categories[j].gold,

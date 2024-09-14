@@ -328,7 +328,7 @@ void medalsWon(PtMedalList medals, PtMap hosts, char *country, char *season, int
   int sizePrint = medalsWonSize;
   if(sizePrint > 5) sizePrint = 5;
   if(terminationFlag != 1) {
-    uiMedalsWon(medalsWon, sizePrint);
+    uiMedalsWon(medalsWon, sizePrint, hosts);
   }
 
   for(int i = 0; i < medalsWonSize; i++) {
