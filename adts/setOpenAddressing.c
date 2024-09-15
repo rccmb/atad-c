@@ -75,7 +75,7 @@ int setAdd(PtSet set, SetElem elem) {
       added = true;
       break;
     }
-    if(set->nodes[position].occupied == 1) {
+    if(set->nodes[position].occupied == 1 && set->nodes[position].deleted == 0) {
       if(setElemCompare(set->nodes[position].element, elem) == 0) {
         return SET_DUPLICATE;
       }
@@ -91,8 +91,28 @@ int setAdd(PtSet set, SetElem elem) {
 }
 
 int setRemove(PtSet set, SetElem elem) {
-  // TODO
-  return 0;
+  if(set == NULL) return SET_NULL;
+
+  int position = findPosition(set, elem);
+  if(position == -1) return SET_ERROR;
+
+  int capacity = getPrime(set->index);
+  for(int i = 0; i < capacity; i++) {
+    if(set->nodes[position].occupied == 0 && set->nodes[position].deleted == 0) {
+      return SET_NOT_FOUND;
+    }
+    if(set->nodes[position].occupied == 1) {
+      if(setElemCompare(set->nodes[position].element, elem) == 0) {
+        set->nodes[position].deleted = 1;
+        set->size -= 1;
+        set->deletedCount += 1;
+        break;
+      }
+    }
+    position = (position + 1) % capacity;
+  }
+
+  return SET_OK;
 }
 
 bool setContains(PtSet set, SetElem elem) {
@@ -125,19 +145,44 @@ int setSize(PtSet set, int *ptSize) {
   return SET_OK;
 }
 
-int setSubset(PtSet set1, PtSet set2) {
-  // TODO
-  return 0;
-}
+bool setSubset(PtSet set1, PtSet set2) {
+  if(set1 == NULL || set2 == NULL) return SET_NULL;
 
-bool setIsEmpty(PtSet set) {
-  // TODO
+  int setOneCapacity = getPrime(set1->index);
+  int position = 0;
+  for(int i = 0; i < setOneCapacity; i++) {
+    if(set1->nodes[position].occupied == 1 && set1->nodes[i].deleted == 0) {
+      if(!setContains(set2, set1->nodes[position].element)) {
+        return false;
+      }
+    }
+    position = (position + 1) % setOneCapacity;
+  }
+
   return true;
 }
 
+bool setIsEmpty(PtSet set) {
+  if(set == NULL) return true;
+
+  return (set->size == 0);
+}
+
 int setClear(PtSet set) {
-  // TODO
-  return 0;
+  if(set == NULL) return SET_NULL;
+
+  int capacity = getPrime(set->index);
+  int position = 0;
+  for(int i = 0; i < capacity; i++) {
+    if(set->nodes[position].occupied == 1 && set->nodes[i].deleted == 0) {
+      set->nodes[position].deleted = 1;
+      set->size -= 1;
+      set->deletedCount += 1;
+    }
+    position = (position + 1) % capacity;
+  }
+
+  return SET_OK;
 }
 
 SetElem* setValues(PtSet set) {
@@ -156,8 +201,16 @@ SetElem* setValues(PtSet set) {
 }
 
 void setPrint(PtSet set) {
-  // TODO
-  return;
+  if(set == NULL) return;
+
+  int capacity = getPrime(set->index);
+  int position = 0;
+  for(int i = 0; i < capacity; i++) {
+    if(set->nodes[position].occupied == 1 && set->nodes[i].deleted == 0) {
+      setElemPrint(set->nodes[position].element);
+    }
+    position = (position + 1) % capacity;
+  }
 }
 
 int setDestroy(PtSet *ptSet) {

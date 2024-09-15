@@ -92,11 +92,10 @@ int setSize(PtSet set, int *ptSize);
  * @param set1 [in] pointer to set one.
  * @param set2 [in] pointer to set two.
  * 
- * @return 0 of none of the sets are subsets of each other.
- * @return >0 if set one is a subset of set two.
- * @return <0 if set two is a subset of set one.
+ * @return true if set1 is a subset of set2.
+ * @return false if set1 is not a subset of set2.
  */
-int setSubset(PtSet set1, PtSet set2);
+bool setSubset(PtSet set1, PtSet set2);
 
 /**
  * @brief Checks if the given set is empty.

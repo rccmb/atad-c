@@ -131,7 +131,7 @@ void uiDisciplineStatistics(PtMedalAccumulator accumulators, int size, char *gam
     printf("%5d. %53s ", i + 1, currentMA.discipline);
     tied == 0 
       ? printf("%60s", country)
-      : printf("%54s %s(%02d)", country, "*", tied);
+      : printf("%54s %s(%02d)", country, "*", tied + 1);
     printf("%10d %17.2f", max, (double) currentMA.women / currentMA.totalParticipants);
     printf("\n");
 

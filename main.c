@@ -34,13 +34,6 @@ int main() {
 
     PtMap hosts = NULL;
 
-    // Testing START
-    athletes = loadAthletes();
-    loadMedals(&medals);
-    hosts = loadHosts();
-    medalsWon(&medals, hosts, "United States of America", "Winter", 1924);
-    // Testing END
-
     while(true) {
         char command[COMMAND_LENGTH];
         printf("MENU Command > ");

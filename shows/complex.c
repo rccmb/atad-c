@@ -269,7 +269,7 @@ void medalsWon(PtMedalList medals, PtMap hosts, char *country, char *season, int
   bool countryExists = false;
   for(int i = 0; i < medals->size; i++) {
     StringWrap swrGameSlug = stringWrapCreate(medals->elements[i].game);
-    if(strcmp(medals->elements[i].country, country) == 0) {
+    if(strcmpins(medals->elements[i].country, country) == 0) {
       countryExists = true;
       if(
         setContains(validHosts, swrGameSlug)
