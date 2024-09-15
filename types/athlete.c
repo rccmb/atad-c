@@ -1,6 +1,5 @@
 /**
  * @file athlete.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of athlete.h.
  * 
  * Allows for creating athletes and accessing their information.
@@ -9,6 +8,8 @@
  * @version 1
  * @date 2024-08-09
  * 
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdlib.h>

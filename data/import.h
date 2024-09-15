@@ -16,13 +16,14 @@
  * @brief Imports athlete information.
  * 
  * @return PtList containing all of the imported athletes.
+ * @return Null if nothing was imported.
  */
 PtList loadAthletes();
 
 /**
  * @brief Imports medal information.
  *
- * @param medals [in] Pointer to the medal instance.
+ * @param medals [out] Pointer to the medal instance where the data will be added to.
  */
 void loadMedals(PtMedalList medals);
 
@@ -30,5 +31,6 @@ void loadMedals(PtMedalList medals);
  * @brief Imports host information.
  * 
  * @return PtMap containing all of the imported hosts where key is the game slug and value the host structure.
+ * @return Null if nothing was imported.
  */
 PtMap loadHosts();

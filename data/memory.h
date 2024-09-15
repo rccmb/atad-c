@@ -29,7 +29,7 @@
 void clear(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals);
 
 /**
- * @brief Quits the program. Uses clear().
+ * @brief Quits the program and clears memory. Uses clear().
  * 
  * @param ptAthletes [in] Address of pointer to the athlete list.
  * @param ptHosts [in] Address of pointer to the hosts map.

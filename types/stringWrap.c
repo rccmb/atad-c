@@ -1,13 +1,14 @@
 /**
  * @file stringWrap.c
- * @author IPS
  * @brief Provides an implementation of stringWrap.h.
  * 
  * Allows for the "creation" of statically allocated strings.
  * 
  * @version 1
  * @date 2024-08-11
- * 
+ *
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <string.h>

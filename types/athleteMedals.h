@@ -54,7 +54,7 @@ typedef struct athleteMedals *PtAthleteMedals;
 AthleteMedals athleteMedalsCreate(char *athleteID);
 
 /**
- * @brief Creates a athlete medals. Auxiliary structure for TOPN.
+ * @brief Adds a medal to an AthleteMedals. Auxiliary structure for TOPN.
  * 
  * @param am [in] Pointer to the athlete medals that will receive the medal.
  * @param medal [in] Pointer to the medal that will be added.

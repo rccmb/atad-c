@@ -1,6 +1,5 @@
 /**
  * @file datetime.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of datetime.h.
  * 
  * Allows for creating datetimes and getting their information.
@@ -8,6 +7,8 @@
  * @version 1
  * @date 2024-08-14
  * 
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdio.h>

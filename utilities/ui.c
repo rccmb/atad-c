@@ -1,13 +1,14 @@
 /**
  * @file ui.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of ui.h.
  * 
  * Handles printing.
  * 
  * @version 1
  * @date 2024-08-10
- * 
+ *
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include "../adts/list.h"

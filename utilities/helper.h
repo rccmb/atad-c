@@ -43,9 +43,10 @@ void orderAthletes(PtList athletes);
 PtList athleteListCopy(PtList athletes);
 
 /**
- * @brief Checks if the provided copy of ordered athletes has been loaded into memory.
+ * @brief Checks if the provided copy of ordered athletes has been loaded into memory. 
  *
- * Saves execution time but not having to repeatedly order athletes by name.
+ * If there is no ordered athletes list in memory, it loads it.
+ * Saves execution time by not having to repeatedly order athletes by name.
  * 
  * @param athletes [in] The list of athletes to copy.
  * @param athletesCopy [out] Address of the list to hold the ordered athletes, only modified if it's already NULL.
@@ -55,7 +56,7 @@ void checkOrderedAthletesLoaded(PtList athletes, PtList *athletesCopy);
 /**
  * @brief Extracts the date from a string. 1952-08-03T07:00:00Z -> 1952-08-03
  *
- * It is assumed that the string is well formated. DATETIME
+ * It is assumed that the string is well formated. "YYYY-MM-DDTHH:MM:SSZ"
  * 
  * @param datetime [in] String with the date and hour.
  * @param date [in] String to hold only the date.
@@ -65,7 +66,7 @@ void extractDate(char *datetime, char *date);
 /**
  * @brief Extracts the city from a string with a year. Helsinki 1952 -> Helsinki
  *
- * It is assumed that the string is well formated. CITY YEAR
+ * It is assumed that the string is well formated. "CITY YEAR"
  * 
  * @param cityyear [in] String with the city and year.
  * @param city [in] String to hold the city.

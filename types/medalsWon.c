@@ -1,11 +1,12 @@
 /**
  * @file medalsWon.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of medalsWon.h.
  *
  * @version 1
  * @date 2024-09-11
- * 
+ *
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdlib.h>

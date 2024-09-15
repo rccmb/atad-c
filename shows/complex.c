@@ -1,6 +1,5 @@
 /**
  * @file complex.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of complex.h.
  * 
  * Allows for displaying information about the imported athlete, host and medal data.
@@ -8,6 +7,8 @@
  * @version 1
  * @date 2024-08-24
  * 
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdlib.h>

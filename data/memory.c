@@ -1,13 +1,14 @@
 /**
  * @file memory.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of memory.h.
  * 
  * Responsible for deallocating all dynamically allocated memory.
  * 
  * @version 1
  * @date 2024-08-11
- * 
+ *
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdio.h>

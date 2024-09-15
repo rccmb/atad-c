@@ -40,8 +40,8 @@ void setElemPrint(SetElem elem);
  * @param elem2 [in] another set element.
  *
  * @return 0 if they are equal.
- * @return value less than 0, if 'elem1' is less than 'elem2' 
- * @return value greater than 0 if 'elem1' is greater than 'elem2' 
+ * @return <0, if 'elem1' is less than 'elem2' 
+ * @return >0 if 'elem1' is greater than 'elem2' 
  */
 int setElemCompare(SetElem elem1, SetElem elem2);
 

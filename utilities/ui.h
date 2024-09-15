@@ -1,5 +1,5 @@
 /**
- * @file menu.h
+ * @file ui.h
  * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Responsible for showing the user interface and printing information.
  * 

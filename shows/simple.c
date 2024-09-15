@@ -1,6 +1,5 @@
 /**
  * @file simple.c
- * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of simple.h.
  * 
  * Allows for displaying information about the imported athlete and host data.
@@ -9,6 +8,8 @@
  * @version 2
  * @date 2024-08-25
  * 
+ * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
+ * @bug No known bugs.
  */
 
 #include <stdio.h>

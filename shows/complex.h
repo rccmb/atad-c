@@ -3,7 +3,8 @@
  * @author Rodrigo Baptista (202200217@estudantes.ips.pt)
  * @brief Provides an implementation of complex.h.
  * 
- * Complex SHOW functions, require multiple datasets.
+ * Complex SHOW functions, require multiple datasets per function call.
+ * ATHLETE_INFO, TOPN, MEDALS_WON.
  *
  * @version 1
  * @date 2024-08-24

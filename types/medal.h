@@ -40,7 +40,7 @@ typedef struct medalList {
 typedef struct medalList *PtMedalList;
 
 /**
- * @brief Adds a medal to the medal list.
+ * @brief Create a new medal.
  * 
  * @param discipline [in] Discipline of the medal.
  * @param game [in] Edition of the olympic games.
