@@ -19,10 +19,14 @@
 static void heapWipe(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
   if(*ptAthletes != NULL) {
     PtList athList = *ptAthletes;
-    listDestroy(&athList);
+
+    int athSize = 0;
+    listSize(athList, &athSize);
     
+    listDestroy(&athList);
+
     athList == NULL 
-      ? printf("Athletes cleared from heap memory.\n")
+      ? printf("<%d> Athletes cleared from heap memory.\n", athSize)
       : printf("Error clearing Athletes from heap memory.\n");
 
     if(athList == NULL) *ptAthletes = NULL;
@@ -30,10 +34,14 @@ static void heapWipe(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
 
   if(*ptHosts != NULL) {
     PtMap hMap = *ptHosts;
+
+    int hostsSize = 0;
+    mapSize(hMap, &hostsSize);
+
     mapDestroy(&hMap);
-    
+
     hMap == NULL 
-      ? printf("Hosts cleared from heap memory.\n")
+      ? printf("<%d> Hosts cleared from heap memory.\n", hostsSize)
       : printf("Error clearing Hosts from heap memory.\n");
 
     if(hMap == NULL) *ptHosts = NULL;
@@ -42,11 +50,12 @@ static void heapWipe(PtList *ptAthletes, PtMap *ptHosts, PtMedalList medals) {
   if(medals->elements != NULL) {
     free(medals->elements);
     medals->elements = NULL;
-    medals->size = 0;
     
     medals->elements == NULL 
-      ? printf("Medals cleared from heap memory.\n")
+      ? printf("<%d> Medals cleared from heap memory.\n", medals->size)
       : printf("Error clearing Medals from heap memory.\n");
+
+    medals->size = 0;
   } 
 }
 

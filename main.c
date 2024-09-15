@@ -188,7 +188,7 @@ int main() {
             }
 
             int year;
-            printf("Year: ");
+            printf("Start Year: ");
             readInteger(&year);
 
             medalsWon(&medals, hosts, country, season, year);

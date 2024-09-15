@@ -81,7 +81,7 @@ void paginate(PtList athletes) {
     printf("2. Return\n");
     
     printf("Pagination Command > ");
-    int userChoice;
+    int userChoice = 0;
     readInteger(&userChoice);
 
     while(userChoice != 1 && userChoice != 2) {
