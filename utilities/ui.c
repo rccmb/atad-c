@@ -155,24 +155,26 @@ void uiShowHost(Host h) {
 
 void uiAthleteInfo(PtMedal entries, char *athleteId, char *athleteCountry, int entriesSize) {
   int flag[entriesSize];
+  int gold = 0, silver = 0, bronze = 0;
   for(int i = 0; i < entriesSize; i++) flag[i] = 0;
   printf("Athlete %s competed for %s and won %d medals!\n", athleteId, athleteCountry, entriesSize);
+  printf("%-30s | %-30s | %-60s | %-10s\n", "EDITION", "DISCIPLINE", "EVENT TITLE", "MEDAL");
+  printf("%-30s | %-30s | %-60s | %-10s\n", "-------", "----------", "-----------", "-----");
   for(int i = 0; i < entriesSize; i++) {
     if(flag[i] == 1) continue;
-    printf("Edition %s:\n", entries[i].game);
     for(int j = i; j < entriesSize; j++) {
       if(strcmp(entries[j].game, entries[i].game) == 0) {
         flag[j] = 1;
         char extType[64];
         medalType(&(entries[j]), extType);
-        printf("\t-> Won %s in %s, event: %s.\n", 
-          extType, 
-          entries[j].discipline,
-          entries[j].eventTitle
-        );
+        if(strcmp(extType, "Gold") == 0) gold += 1;
+        if(strcmp(extType, "Silver") == 0) silver += 1;
+        if(strcmp(extType, "Bronze") == 0) bronze += 1;
+        printf("%-30s | %-30s | %-60s | %-10s\n", entries[i].game, entries[j].discipline, entries[j].eventTitle, extType);
       }
     }
   }
+  printf("Total: %d gold, %d silver and %d bronze.\n", gold, silver, bronze);
 }
 
 void uiTopN(PtAthleteMedals athleteMedals, int size, int totalDayCount, int n) {
