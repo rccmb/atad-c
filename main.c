@@ -81,7 +81,7 @@ int main() {
 
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
 
-            int participationCount;
+            int participationCount = 0;
             printf("Participation Count: ");
             readInteger(&participationCount);
 
@@ -94,7 +94,7 @@ int main() {
 
             checkOrderedAthletesLoaded(athletes, &alphabeticAthletes);
 
-            int firstYear;
+            int firstYear = 0;
             printf("First Participation Year: ");
             readInteger(&firstYear);
 
@@ -138,7 +138,7 @@ int main() {
             bool missing = athletesIsNull(athletes) | medalsIsNull(&medals) | hostsIsNull(hosts);
             if(missing) continue;
 
-            int n;
+            int n = 0;
             printf("Number of Athletes: ");
             readInteger(&n);
             while(n < 0) {
@@ -147,7 +147,7 @@ int main() {
                 readInteger(&n);
             }
 
-            int start, end;
+            int start = 0, end = 0;
             printf("Start Year: ");
             readInteger(&start);
             printf("End Year: ");
@@ -187,7 +187,7 @@ int main() {
                 readString(season, MAX_GAME_SEASON_LENGTH);
             }
 
-            int year;
+            int year = 0;
             printf("Start Year: ");
             readInteger(&year);
 
